@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Keluarga Sabrina</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Amiri & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Amiri', 'serif'],
+          },
+          animation: {
+            'blob': 'blob 7s infinite',
+            'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #020617;
+      /* Slate 950 */
+      color: #f8fafc;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #34d399, #0ea5e9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .delay-100 {
+      animation-delay: 100ms;
+    }
+
+    .delay-200 {
+      animation-delay: 200ms;
+    }
+
+    .delay-300 {
+      animation-delay: 300ms;
+    }
+  </style>
+</head>
+
+<body class="relative flex flex-col font-sans antialiased selection:bg-emerald-500/30">
+
+  <!-- =============================== -->
+  <!-- LOGIN WALL (HANYA TAMPIL JIKA BELUM LOGIN) -->
+  <!-- =============================== -->
+  <section id="login-wall" class="min-h-screen flex items-center justify-center relative z-50 p-4">
+    <!-- Decorative background blobs just for login -->
+    <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob" style="animation-delay: 2s"></div>
+    </div>
+    
+    <div class="glass-card w-full max-w-sm p-8 rounded-3xl border border-emerald-500/40 shadow-2xl space-y-6 bg-slate-900/90 relative z-10 animate-fade-in-up">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl mx-auto flex items-center justify-center shadow-lg shadow-emerald-500/30 mb-4">
+          <i class="fa-solid fa-users text-3xl text-slate-900"></i>
+        </div>
+        <h2 class="font-heading font-bold text-white text-2xl">Portal Keluarga</h2>
+        <p class="text-xs text-slate-400">Verifikasi identitas Anda untuk melanjutkan.</p>
+      </div>
+
+      <form onsubmit="handleLoginSubmit(event)" class="space-y-5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Pilih Nama Keluarga</label>
+          <select id="login-username" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none cursor-pointer">
+            <option value="" disabled selected>-- Pilih Nama --</option>
+            <!-- Options populated by JavaScript -->
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Masukkan PIN Akses</label>
+          <div class="relative">
+            <input type="password" id="login-pin" placeholder="PIN Rahasia Anda" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none">
+          </div>
+        </div>
+        <div id="login-error-msg" class="hidden p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs text-center"></div>
+
+        <button type="submit" id="login-submit-btn" class="w-full py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 transition shadow-lg shadow-emerald-500/20">
+          Masuk Aplikasi <i class="fa-solid fa-arrow-right ml-1"></i>
+        </button>
+      </form>
+            <div class="pt-4 border-t border-slate-800 text-center flex flex-col gap-3">
+           <button type="button" onclick="loginAsCucu()" class="text-[12px] font-bold text-emerald-400 hover:text-emerald-300 transition flex items-center justify-center gap-1.5 mx-auto">
+             <i class="fa-solid fa-child-reaching"></i> Login Sebagai Cucu?
+           </button>
+           <button type="button" onclick="openAdminPortalModal()" class="text-[10px] text-slate-500 hover:text-amber-400 transition flex items-center justify-center gap-1.5 mx-auto">
+             <i class="fa-solid fa-shield-halved"></i> Login sebagai Eksekutor (Admin)
+           </button>
+        </div>
+    </div>
+  </section>
+
+  <!-- =============================== -->
+  <!-- WELCOME SCREEN (MUNCUL SESAAT SETELAH LOGIN) -->
+  <!-- =============================== -->
+  <section id="welcome-screen" class="min-h-screen flex items-center justify-center relative z-[60] p-4 hidden bg-slate-950">
+    <!-- Dekorasi Latar Belakang -->
+    <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+      <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-emerald-600/10 rounded-full mix-blend-screen filter blur-[80px] animate-blob"></div>
+    </div>
+    
+    <div class="glass-card w-full max-w-sm p-10 rounded-3xl border border-emerald-500/40 shadow-2xl text-center space-y-6 bg-slate-900/90 relative z-10 animate-fade-in-up">
+      <div id="welcome-photo-container" class="w-24 h-24 mx-auto rounded-full border-4 border-emerald-500/30 overflow-hidden shadow-lg shadow-emerald-500/20 flex items-center justify-center bg-slate-800">
+        <!-- Photo/Icon disuntikkan via JS -->
+      </div>
+      <div>
+        <h3 class="text-slate-400 text-sm font-semibold mb-1">Selamat Datang kembali,</h3>
+        <h2 id="welcome-name" class="font-heading font-bold text-white text-3xl mb-1">Nama User</h2>
+        <p class="text-[11px] text-emerald-400 font-medium tracking-wider uppercase">Akses Diberikan</p>
+      </div>
+      <button onclick="continueToLanding()" class="w-full py-3 mt-4 text-sm font-bold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 transition shadow-[0_5px_15px_rgba(16,185,129,0.3)]">
+        Lanjut ke Beranda <i class="fa-solid fa-arrow-right ml-1"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- =============================== -->
+  <!-- KONTEN LANDING (MUNCUL SETELAH LOGIN) -->
+  <!-- =============================== -->
+  <div id="landing-content" class="hidden relative w-full h-full">
+
+  <!-- Background Decorative Blobs -->
+  <div class="fixed inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+    <div
+      class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob">
+    </div>
+    <div
+      class="absolute top-1/4 right-1/4 w-96 h-96 bg-teal-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000">
+    </div>
+    <div
+      class="absolute -bottom-32 left-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000">
+    </div>
+    <!-- Grid Pattern overlay -->
+    <div
+      class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0">
+    </div>
+  </div>
+
+  <!-- Header Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center pointer-events-none">
+    <!-- Logo & Title -->
+    <div class="pointer-events-auto flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+        <i class="fa-solid fa-users text-white text-sm"></i>
+      </div>
+      <span class="font-heading font-bold text-white text-xl tracking-wide drop-shadow-lg">Sabrina App</span>
+    </div>
+
+    <!-- Quick Access Links (Desktop) -->
+    <div class="pointer-events-auto hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300 glass-panel px-6 py-2 rounded-full">
+       <a href="index.html" class="text-emerald-400">Beranda</a>
+       <a href="modul.html" class="hover:text-white transition">Edukasi</a>
+       <a href="profil.html" class="hover:text-white transition">Profil Warisan</a>
+       <a href="app.html" id="nav-aplikasi-desktop" class="hover:text-white transition">Aplikasi</a>
+    </div>
+
+    <!-- Buttons & Hamburger -->
+    <div class="pointer-events-auto flex items-center gap-3">
+      <button onclick="handleUserLogout()"
+        class="px-4 py-2 rounded-full glass-panel border border-rose-500/40 hover:bg-rose-900/50 transition-all text-rose-400 hover:text-white text-xs font-semibold flex items-center gap-2 shadow-lg">
+        <i class="fa-solid fa-power-off"></i> Keluar
+      </button>
+      <button onclick="openAdminPortalModal()"
+        class="px-4 py-2 rounded-full glass-panel border border-slate-700 hover:border-amber-500/50 hover:bg-slate-800/80 transition-all text-slate-400 hover:text-amber-400 text-xs font-semibold flex items-center gap-2 shadow-lg hidden">
+        <i class="fa-solid fa-shield-halved"></i> Akses Eksekutor
+      </button>
+      <!-- Hamburger (Mobile) -->
+      <button onclick="toggleMobileMenu()" class="md:hidden text-slate-400 hover:text-white p-2 glass-panel rounded-lg shadow-lg">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu for index.html -->
+  <div id="mobile-menu" class="hidden md:hidden fixed top-20 left-4 right-4 z-50 bg-slate-900/95 backdrop-blur border border-slate-800 rounded-2xl shadow-2xl p-4">
+    <div class="space-y-4 text-sm font-semibold text-center">
+       <a href="index.html" class="block py-3 text-emerald-400 border-b border-slate-800">Beranda</a>
+       <a href="modul.html" class="block py-3 text-slate-300 hover:text-white border-b border-slate-800">Edukasi</a>
+       <a href="profil.html" class="block py-3 text-slate-300 hover:text-white border-b border-slate-800">Profil Warisan</a>
+       <a href="app.html" id="nav-aplikasi-mobile" class="block py-3 text-slate-300 hover:text-white">Aplikasi</a>
+    </div>
+  </div>
+
+  <main class="relative z-10 w-full flex flex-col text-left">
+
+    <!-- SECTION 1: HERO -->
+    <section
+      class="min-h-screen flex flex-col justify-between items-center text-left px-6 pt-24 pb-12 relative w-full max-w-7xl mx-auto">
+
+      <!-- Top/Center: Polaroid -->
+      <div class="flex-grow flex flex-col justify-center items-center w-full z-10 pt-10 lg:pt-0">
+        <div class="opacity-0 translate-y-4 animate-fade-in-up delay-300 relative group">
+
+          <!-- Polaroid Belakang -->
+          <div
+            class="absolute inset-0 bg-[#f8f8f8] p-3 pb-12 shadow-2xl transform -rotate-12 -translate-x-6 translate-y-4 opacity-50 border border-slate-300/50 w-56 md:w-72">
+            <div class="w-full aspect-square bg-slate-800 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&q=80"
+                alt="Memori" class="w-full h-full object-cover filter grayscale opacity-60" />
+            </div>
+          </div>
+
+          <!-- Polaroid Depan -->
+          <div
+            class="relative bg-[#f8f8f8] p-3 pb-16 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform rotate-6 hover:rotate-2 hover:scale-105 transition-all duration-500 border border-slate-300 w-64 md:w-80 z-10">
+            <div class="w-full aspect-square bg-slate-900 overflow-hidden shadow-inner">
+              <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80"
+                alt="Keluarga"
+                class="w-full h-full object-cover filter sepia-[.3] hover:sepia-0 transition-all duration-700" />
+            </div>
+            <div class="absolute bottom-5 left-0 w-full text-center">
+              <p class="text-slate-800 font-heading text-xl md:text-2xl font-bold italic tracking-wide">Est. 2026</p>
+            </div>
+            <div
+              class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-white/40 backdrop-blur-sm transform -rotate-2 border border-white/20 shadow-sm">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom (Footer Hero) -->
+      <div
+        class="w-full flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 z-10 pb-4 mt-12 lg:mt-0">
+        <!-- Kiri: Headline -->
+        <div class="w-full lg:w-7/12 flex flex-col justify-start">
+          <div id="hero-welcome-text" class="text-emerald-400 font-semibold tracking-widest uppercase text-sm mb-4 opacity-0 animate-fade-in-up">
+            <!-- Disuntik via JS -->
+          </div>
+          <h1
+            class="opacity-0 translate-y-4 animate-fade-in-up font-heading text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tight text-white leading-[1.1] m-0">
+            Portal Harmoni <br>
+            <span class="text-gradient whitespace-nowrap">Keluarga Sabrina</span>
+          </h1>
+        </div>
+
+        <!-- Kanan: Sub-headline & CTA -->
+        <div class="w-full lg:w-5/12 flex flex-col items-start lg:items-end text-left lg:text-right gap-6">
+          <p
+            class="opacity-0 translate-y-4 animate-fade-in-up delay-100 text-lg md:text-xl text-slate-400 font-light leading-relaxed max-w-md">
+            Platform musyawarah transparan untuk pengelolaan aset dan warisan keluarga.
+          </p>
+          <a href="#musyawarah"
+            class="opacity-0 translate-y-4 animate-fade-in-up delay-200 px-8 py-4 rounded-full glass-panel hover:bg-slate-800 border border-slate-700 hover:border-emerald-500 transition-all text-white font-bold flex items-center gap-3 shadow-[0_0_20px_rgba(16,185,129,0.15)] group">
+            Mulai Jelajahi <i class="fa-solid fa-chevron-down group-hover:translate-y-1 transition-transform mt-1"></i>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 2: CENTER ALIGNED (Profil Tanah) -->
+    <section id="profil" class="min-h-screen flex flex-col justify-center items-center text-center px-6 py-24 relative">
+      <div class="max-w-3xl mx-auto relative z-10 scroll-reveal">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8">
+          <div class="text-amber-400 text-6xl md:text-7xl drop-shadow-[0_0_30px_rgba(245,158,11,0.4)] opacity-90 hover:scale-110 transition-transform duration-500">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <h2 class="font-heading text-4xl md:text-6xl font-bold text-white text-center md:text-left m-0">Kenali Warisan Kita</h2>
+        </div>
+        <p class="text-slate-400 text-lg mb-10 leading-relaxed">
+          Sebelum menentukan langkah, mari kenali kembali rincian teknis dan potensi dari 4 aset tanah peninggalan keluarga secara mendalam dan terukur.
+        </p>
+        <a href="profil.html" class="px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold hover:scale-105 transition-transform shadow-[0_10px_25px_rgba(245,158,11,0.3)] inline-flex items-center gap-3">
+          Jelajahi Profil Lahan <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CENTER ALIGNED (Edukasi) -->
+    <section id="edukasi" class="min-h-screen flex flex-col justify-center items-center text-center px-6 py-24 relative">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none"></div>
+      <div class="max-w-3xl mx-auto relative z-10 scroll-reveal">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8">
+          <div class="text-blue-400 text-6xl md:text-7xl drop-shadow-[0_0_30px_rgba(59,130,246,0.4)] opacity-90 hover:scale-110 transition-transform duration-500">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <h2 class="font-heading text-4xl md:text-6xl font-bold text-white text-center md:text-left m-0">Pahami Hak & Aturan</h2>
+        </div>
+        <p class="text-slate-400 text-lg mb-10 leading-relaxed">
+          Kerukunan berawal dari pemahaman yang sama. Pelajari dasar hukum Faraidh, prosedur keamanan transaksi, dan cara menghindari sengketa agar warisan membawa berkah.
+        </p>
+        <a href="edukasi.html" class="px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold hover:scale-105 transition-transform shadow-[0_10px_25px_rgba(59,130,246,0.4)] inline-flex items-center gap-3">
+          Buka Pusat Edukasi <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 4: CENTER ALIGNED (Musyawarah) -->
+    <section id="musyawarah" class="min-h-screen flex flex-col justify-center items-center text-center px-6 py-24 relative">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent pointer-events-none"></div>
+      <div class="max-w-3xl mx-auto relative z-10 scroll-reveal">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8">
+          <div class="text-emerald-400 text-6xl md:text-7xl drop-shadow-[0_0_30px_rgba(16,185,129,0.4)] opacity-90 hover:scale-110 transition-transform duration-500">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <h2 class="font-heading text-4xl md:text-6xl font-bold text-white text-center md:text-left m-0">Satu Suara, Satu Tujuan</h2>
+        </div>
+        <p class="text-slate-400 text-lg mb-10 leading-relaxed">
+          Kini saatnya kita bermusyawarah. Melalui sistem kuesioner rahasia ini, sampaikan pandangan dan pilihan Anda untuk menyepakati masa depan warisan keluarga.
+        </p>
+        <button onclick="window.location.href='app.html'" class="px-8 py-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold hover:scale-105 transition-transform shadow-[0_10px_25px_rgba(16,185,129,0.4)] flex items-center gap-3 mx-auto">
+          Lanjut ke Musyawarah <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="w-full py-8 text-center border-t border-slate-800/50 text-slate-500 text-xs font-medium tracking-wide">
+      &copy; 2026 Keluarga Sabrina &bull; Privasi Terjaga &bull; Mengedepankan Kerukunan
+    </footer>
+
+    </footer>
+
+  </main>
+</div>
+
+  <!-- Modal Login Admin -->
+  <div id="modal-admin-portal"
+    class="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
+    <div
+      class="glass-card w-full max-w-sm p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-5 bg-slate-900/90 relative">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-700">
+        <div class="flex items-center gap-2.5 text-amber-400">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-white text-lg leading-tight">Admin Portal</h3>
+            <p class="text-[11px] text-slate-400">Masukkan PIN khusus Eksekutor</p>
+          </div>
+        </div>
+        <button onclick="closeAdminPortalModal()"
+          class="text-slate-400 hover:text-white p-1 rounded-lg transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleAdminPortalSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">PIN Eksekutor (Default: 7777)</label>
+          <div class="relative">
+            <input type="password" id="admin-portal-pin" placeholder="****" required
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none">
+          </div>
+        </div>
+
+        <div id="admin-error-msg"
+          class="hidden p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs">PIN Salah.
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-3">
+          <button type="button" onclick="closeAdminPortalModal()"
+            class="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200 rounded-lg transition-colors">
+            Batal
+          </button>
+          <button type="submit" id="login-submit-btn"
+            class="px-5 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 transition shadow-lg shadow-amber-500/20">
+            Login Admin
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function updateHeroWelcome(username) {
+      const welcomeEl = document.getElementById('hero-welcome-text');
+      if (!welcomeEl) return;
+      
+      if (username && username !== 'Cucu') {
+        const savedSettings = JSON.parse(localStorage.getItem('sabrina_members_settings')) || {};
+        const userData = savedSettings[username] || {};
+        const displayName = userData.nama || username;
+        welcomeEl.innerHTML = `Selamat Datang, ${displayName} <i class="fa-solid fa-hand-sparkles ml-1"></i>`;
+      } else if (username === 'Cucu' || sessionStorage.getItem('sabrina_cucu') === 'true') {
+        welcomeEl.innerHTML = `Selamat Datang, Cucu Kesayangan <i class="fa-solid fa-child-reaching ml-1"></i>`;
+      } else if (sessionStorage.getItem('sabrina_admin') === 'true') {
+        welcomeEl.innerHTML = `Selamat Datang, Eksekutor <i class="fa-solid fa-shield-halved ml-1"></i>`;
+      }
+    }
+
+    function updateAccessControl() {
+      const isCucu = sessionStorage.getItem('sabrina_cucu') === 'true';
+      const navDesktop = document.getElementById('nav-aplikasi-desktop');
+      const navMobile = document.getElementById('nav-aplikasi-mobile');
+      const sectMusyawarah = document.getElementById('musyawarah');
+      
+      if (isCucu) {
+        if (navDesktop) navDesktop.classList.add('hidden');
+        if (navMobile) navMobile.classList.add('hidden');
+        if (sectMusyawarah) sectMusyawarah.classList.add('hidden');
+      } else {
+        if (navDesktop) navDesktop.classList.remove('hidden');
+        if (navMobile) navMobile.classList.remove('hidden');
+        if (sectMusyawarah) sectMusyawarah.classList.remove('hidden');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Periksa apakah sudah login, jika ya langsung tampilkan landing page
+      if (sessionStorage.getItem('sabrina_user') || sessionStorage.getItem('sabrina_admin') === 'true' || sessionStorage.getItem('sabrina_cucu') === 'true') {
+        document.getElementById('login-wall').classList.add('hidden');
+        document.getElementById('landing-content').classList.remove('hidden');
+        updateHeroWelcome(sessionStorage.getItem('sabrina_user'));
+        updateAccessControl();
+      }
+
+      const selectObj = document.getElementById('login-username');
+      if (selectObj) {
+        const baseMembers = ['Suryani', 'Suryati', 'Salmaini', 'Syaifullah', 'Fachruddin', 'Afdhal Muttaqin', 'M. Iqbal Sabrina'];
+        const savedSettings = JSON.parse(localStorage.getItem('sabrina_members_settings')) || {};
+        
+        baseMembers.forEach(id => {
+          const displayName = savedSettings[id]?.nama || id;
+          const opt = document.createElement('option');
+          opt.value = id;
+          opt.innerText = displayName;
+          selectObj.appendChild(opt);
+        });
+      }
+    });
+
+    function handleUserLogout() {
+      sessionStorage.removeItem('sabrina_user');
+      sessionStorage.removeItem('sabrina_admin');
+      sessionStorage.removeItem('sabrina_cucu');
+      window.location.reload();
+    }
+
+    function openLoginModal() {
+      document.getElementById('modal-login').classList.remove('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('modal-login').classList.add('hidden');
+    }
+
+    async function handleLoginSubmit(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value;
+      const pin = document.getElementById('login-pin').value;
+      const errorMsg = document.getElementById('login-error-msg');
+      const submitBtn = document.getElementById('login-submit-btn');
+
+      if (username && pin) {
+        try {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
+          errorMsg.classList.add('hidden');
+
+          const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, pin })
+          });
+          const data = await response.json();
+
+          if (data.success) {
+            sessionStorage.setItem('sabrina_user', username);
+            showWelcomeScreen(username);
+          } else if (data.message === 'Server error' || response.status === 500) {
+            // FALLBACK JIKA DATABASE BELUM JALAN (DOCKER BELUM DIINSTALL)
+            const savedSettings = JSON.parse(localStorage.getItem('sabrina_members_settings')) || {};
+            let isValid = false;
+            if (savedSettings[username] && savedSettings[username].pin) {
+              isValid = (savedSettings[username].pin === pin);
+            } else {
+              isValid = (pin === '123456');
+            }
+
+            if (isValid) {
+              console.warn("Database is offline, using local bypass for UI testing");
+              sessionStorage.setItem('sabrina_user', username);
+              showWelcomeScreen(username);
+            } else {
+              errorMsg.innerText = 'PIN salah. Gunakan PIN yang telah diatur oleh Eksekutor.';
+              errorMsg.classList.remove('hidden');
+            }
+          } else {
+            errorMsg.innerText = data.message || 'Login gagal';
+            errorMsg.classList.remove('hidden');
+          }
+        } catch (err) {
+          // FALLBACK JIKA API MATI TOTAL / BROWSER DARI FILE
+          const savedSettings = JSON.parse(localStorage.getItem('sabrina_members_settings')) || {};
+          let isValid = false;
+          if (savedSettings[username] && savedSettings[username].pin) {
+            isValid = (savedSettings[username].pin === pin);
+          } else {
+            isValid = (pin === '123456');
+          }
+
+          if (isValid) {
+            console.warn("API is offline, using local bypass for UI testing");
+            sessionStorage.setItem('sabrina_user', username);
+            showWelcomeScreen(username);
+          } else {
+            errorMsg.innerText = 'PIN salah. Gunakan PIN yang telah diatur oleh Eksekutor.';
+            errorMsg.classList.remove('hidden');
+          }
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Masuk Aplikasi <i class="fa-solid fa-arrow-right ml-1"></i>';
+        }
+      }
+    }
+
+    function showWelcomeScreen(username) {
+      const savedSettings = JSON.parse(localStorage.getItem('sabrina_members_settings')) || {};
+      const userData = savedSettings[username] || {};
+      
+      const displayName = userData.nama || username;
+      const photoBase64 = userData.photo;
+
+      document.getElementById('welcome-name').innerText = displayName;
+      const photoContainer = document.getElementById('welcome-photo-container');
+      
+      if (photoBase64) {
+        photoContainer.innerHTML = `<img src="${photoBase64}" class="w-full h-full object-cover">`;
+      } else {
+        photoContainer.innerHTML = `<i class="fa-solid fa-user text-4xl text-emerald-400"></i>`;
+      }
+
+      document.getElementById('login-wall').classList.add('hidden');
+      document.getElementById('welcome-screen').classList.remove('hidden');
+      window.scrollTo(0,0);
+    }
+
+    function continueToLanding() {
+      document.getElementById('welcome-screen').classList.add('hidden');
+      document.getElementById('landing-content').classList.remove('hidden');
+      updateHeroWelcome(sessionStorage.getItem('sabrina_user'));
+      updateAccessControl();
+      window.scrollTo(0,0);
+    }
+
+    // Admin Portal
+    function openAdminPortalModal() {
+      document.getElementById('modal-admin-portal').classList.remove('hidden');
+      document.getElementById('admin-portal-pin').value = '';
+      document.getElementById('admin-error-msg').classList.add('hidden');
+    }
+    function closeAdminPortalModal() {
+      document.getElementById('modal-admin-portal').classList.add('hidden');
+    }
+
+    function loginAsCucu() {
+      sessionStorage.setItem('sabrina_user', 'Cucu');
+      sessionStorage.setItem('sabrina_cucu', 'true');
+      showWelcomeScreen('Cucu');
+    }
+
+    function handleAdminPortalSubmit(e) {
+      e.preventDefault();
+      const pin = document.getElementById('admin-portal-pin').value;
+      if (pin === '7777') {
+        sessionStorage.setItem('sabrina_admin', 'true');
+        window.location.href = 'app.html';
+      } else {
+        document.getElementById('admin-error-msg').classList.remove('hidden');
+      }
+    }
+    // Scroll Animation Observer
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-12');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
+        el.classList.add('opacity-0', 'translate-y-12', 'transition-all', 'duration-[1200ms]', 'ease-out');
+        observer.observe(el);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

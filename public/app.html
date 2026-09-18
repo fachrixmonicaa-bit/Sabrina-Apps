@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musyawarah Waris Islam: Lahan 5.216 m² (12 Saham Faraidh)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Amiri & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Amiri', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: '"Plus Jakarta Sans"', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    .wizard-step {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-300 font-sans antialiased min-h-screen pb-20 selection:bg-emerald-500/30">
+
+  <!-- Global Navbar -->
+  <nav class="bg-slate-950 border-b border-slate-800 w-full z-50 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo & Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-users text-white text-sm"></i>
+        </div>
+        <span class="font-heading font-bold text-white text-xl tracking-wide">Sabrina App</span>
+      </div>
+      
+      <!-- Quick Access Links (Desktop) -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+         <a href="index.html" class="hover:text-white transition">Beranda</a>
+         <a href="modul.html" class="hover:text-white transition">Edukasi</a>
+         <a href="profil.html" class="hover:text-white transition">Profil Warisan</a>
+         <a href="app.html" class="text-emerald-400">Aplikasi</a>
+      </div>
+      
+      <!-- Right Auth Area & Hamburger -->
+      <div class="flex items-center gap-3">
+        <div id="auth-btn-container" class="flex items-center">
+          <!-- Tombol login disuntik via JS -->
+        </div>
+        <!-- Hamburger (Mobile) -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-slate-400 hover:text-white p-2 focus:outline-none">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 absolute w-full left-0 top-16 shadow-xl">
+      <div class="px-6 pt-3 pb-5 space-y-3 text-sm font-semibold">
+         <a href="index.html" class="block py-2 text-slate-300 hover:text-white border-b border-slate-800">Beranda</a>
+         <a href="modul.html" class="block py-2 text-slate-300 hover:text-white border-b border-slate-800">Edukasi</a>
+         <a href="profil.html" class="block py-2 text-slate-300 hover:text-white border-b border-slate-800">Profil Warisan</a>
+         <a href="app.html" class="block py-2 text-emerald-400">Aplikasi</a>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+  </script>
+
+  <!-- Header Section (Tabs & Admin Actions) -->
+  <header class="border-b border-slate-800 bg-slate-900/90 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap justify-between items-center gap-4">
+      
+      <!-- Action buttons & Admin Auth Control -->
+      <div class="flex items-center gap-2 flex-wrap ml-auto">
+        <div id="admin-actions-group" class="hidden flex items-center gap-2">
+          <button onclick="loadSampleResponses()" class="px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600 hover:text-white transition flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Simulasi 7 Suara</span>
+          </button>
+          <button onclick="confirmResetData()" class="px-3 py-2 text-xs font-semibold rounded-lg bg-rose-600/20 text-rose-300 border border-rose-500/30 hover:bg-rose-600 hover:text-white transition flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Reset Data</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 sm:space-x-4 border-t border-slate-800/80 overflow-x-auto text-sm font-medium">
+      <button onclick="switchTab('tab-kuesioner')" id="nav-tab-kuesioner" class="py-3 px-4 text-emerald-400 border-b-2 border-emerald-500 flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-clipboard-list"></i>
+        <span>Pengisian Kuesioner (7 Ahli Waris)</span>
+      </button>
+      <button onclick="switchTab('tab-dashboard')" id="nav-tab-dashboard" class="py-3 px-4 text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>Dasbor & Rekap Suara</span>
+        <span id="lock-icon-dashboard" class="text-amber-400/90 text-xs flex items-center gap-1 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30">
+          <i class="fa-solid fa-lock text-[10px]"></i>
+          <span class="text-[10px] font-semibold">Admin</span>
+        </span>
+        <span id="badge-total-suara" class="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">0/7</span>
+      </button>
+      <button onclick="switchTab('tab-manajemen')" id="nav-tab-manajemen" class="py-3 px-4 text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Manajemen Agenda</span>
+        <span id="lock-icon-manajemen" class="text-amber-400/90 text-xs flex items-center gap-1 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30">
+          <i class="fa-solid fa-lock text-[10px]"></i>
+          <span class="text-[10px] font-semibold">Admin</span>
+        </span>
+      </button>
+      <button onclick="switchTab('tab-pengaturan')" id="nav-tab-pengaturan" class="py-3 px-4 text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition">
+        <i class="fa-solid fa-users-cog"></i>
+        <span>Pengaturan Akun</span>
+        <span id="lock-icon-pengaturan" class="text-amber-400/90 text-xs flex items-center gap-1 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30">
+          <i class="fa-solid fa-lock text-[10px]"></i>
+          <span class="text-[10px] font-semibold">Admin</span>
+        </span>
+      </button>
+      <button onclick="switchTab('tab-kalkulator')" id="nav-tab-kalkulator" class="py-3 px-4 text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap transition">
+        <i class="fa-solid fa-calculator"></i>
+        <span>Kalkulator & Faraidh 12 Saham</span>
+        <span id="lock-icon-kalkulator" class="text-amber-400/90 text-xs flex items-center gap-1 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30">
+          <i class="fa-solid fa-lock text-[10px]"></i>
+          <span class="text-[10px] font-semibold">Admin</span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: FORMULIR KUESIONER PEMETAAN 7 SAUDARA -->
+    <!-- ================================================================= -->
+    <section id="tab-kuesioner" class="space-y-6">
+      <div class="glass-card p-6 rounded-2xl border border-slate-700/60 shadow-xl relative overflow-hidden">
+        
+        <!-- Locked Overlay -->
+        <div id="kuesioner-locked" class="hidden absolute inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center rounded-2xl border border-amber-500/20">
+          <div class="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mb-4 border border-amber-500/30">
+            <i class="fa-solid fa-lock text-2xl text-amber-400"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Musyawarah Belum Dimulai</h3>
+          <p class="text-sm text-slate-400 text-center max-w-sm leading-relaxed">Eksekutor belum membuka akses pengisian kuesioner. Silakan tunggu instruksi lebih lanjut di grup keluarga.</p>
+        </div>
+
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-700/60 relative z-10">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 inline-flex items-center justify-center text-sm"><i class="fa-solid fa-pen-to-square"></i></span>
+              Formulir Pemetaan Suara 7 Ahli Waris
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">
+              Diisi oleh 7 saudara kandung yang masih hidup untuk merekam urgensi finansial dan kesiapan eksekusi lahan.
+            </p>
+          </div>
+          <div style="display: none;">
+            <label class="text-xs font-medium text-slate-300">Pilih Identitas:</label>
+            <select id="pilih-anggota" onchange="loadMemberDataIntoForm()" class="bg-slate-900 border border-slate-600 rounded-lg px-3 py-1.5 text-sm text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm cursor-pointer hover:border-emerald-500/50 transition">
+              <!-- Dipopulasikan via JS -->
+            </select>
+          </div>
+        </div>
+
+
+
+        <form id="kuesioner-form" onsubmit="handleFormSubmit(event)" class="mt-6 relative z-10">
+          
+          <!-- Wizard Progress Bar -->
+          <div class="mb-6 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+            <div class="flex justify-between items-center text-xs font-semibold text-slate-300 mb-2">
+              <span id="wizard-step-text" class="text-emerald-400">Langkah 1 dari 5</span>
+              <span id="wizard-progress-text">20% Selesai</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2">
+              <div id="wizard-progress-bar" class="bg-emerald-500 h-2 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(16,185,129,0.4)]" style="width: 20%"></div>
+            </div>
+          </div>
+
+          <!-- Pertanyaan 1: Urgensi Dana -->
+          <div class="wizard-step space-y-3" id="step-1">
+            <label class="block text-sm font-semibold text-slate-200">
+              <span class="text-emerald-400">Pertanyaan 1:</span> Seberapa mendesak kebutuhan Anda terhadap pencairan dana dari tanah waris ini?
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="urgensi" value="mendesak" required class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-rose-400 block">🔴 Mendesak (1 - 6 Bulan)</span>
+                  <p class="text-xs text-slate-400 mt-1">Ada keperluan mendesak (modal usaha, pelunasan utang, pendidikan, renovasi pokok).</p>
+                </div>
+              </label>
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="urgensi" value="moderat" class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-amber-400 block">🟡 Menengah (7 - 18 Bulan)</span>
+                  <p class="text-xs text-slate-400 mt-1">Bersedia menunggu sedikit lebih lama jika hasil penjualan bersih bisa lebih optimal.</p>
+                </div>
+              </label>
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="urgensi" value="santai" class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-emerald-400 block">🟢 Fleksibel / Santai (> 18 Bulan)</span>
+                  <p class="text-xs text-slate-400 mt-1">Tidak ada kebutuhan mendesak, mengutamakan perolehan hasil nilai tertinggi.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pertanyaan 2: Kesiapan Modal Timbunan -->
+          <div class="wizard-step space-y-3 hidden" id="step-2">
+            <label class="block text-sm font-semibold text-slate-200">
+              <span class="text-emerald-400">Pertanyaan 2:</span> Mengingat tanah merupakan rawa (butuh timbunan ±2,5m / ~13.040 m³), bagaimana kesiapan Anda terhadap modal penimbunan & legalitas di awal?
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="kesiapan_modal" value="patungan" required class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-blue-400 block">Siap Patungan Kas di Awal</span>
+                  <p class="text-xs text-slate-400 mt-1">Sanggup menyetor modal kas bersama keluarga untuk uruk & perizinan agar harga jual tinggi.</p>
+                </div>
+              </label>
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="kesiapan_modal" value="potong_dp" class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-purple-400 block">Potong dari DP Pembeli / Investor</span>
+                  <p class="text-xs text-slate-400 mt-1">Tidak mau keluar uang dari kantong pribadi; operasional ditutupi dari uang muka pembeli.</p>
+                </div>
+              </label>
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="kesiapan_modal" value="nol_modal" class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-slate-300 block">Terima Bersih / Nol Modal</span>
+                  <p class="text-xs text-slate-400 mt-1">Sama sekali tidak mau keluar modal tunai, lepas apa adanya walau harga terdiskon.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pertanyaan 3: Preferensi Eksekusi -->
+          <div class="wizard-step space-y-3 hidden" id="step-3">
+            <label class="block text-sm font-semibold text-slate-200">
+              <span class="text-emerald-400">Pertanyaan 3:</span> Dari 3 opsi eksekusi yang diajukan eksekutor, opsi mana yang paling Anda dukung?
+            </label>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <!-- Opsi A -->
+              <label class="relative flex flex-col justify-between p-5 rounded-xl border-2 border-slate-700/80 bg-slate-900/70 hover:border-emerald-500/50 transition cursor-pointer">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300">Opsi 1</span>
+                    <input type="radio" name="opsi_eksekusi" value="jual_mentah" required class="text-emerald-500 focus:ring-emerald-500">
+                  </div>
+                  <h4 class="font-bold text-white text-base">Jual Langsung As-Is (Mentah)</h4>
+                  <p class="text-xs text-slate-400 mt-2">Dijual borongan tanpa penimbunan & tanpa urus izin alih status LSD.</p>
+                  <ul class="text-xs text-slate-300 mt-3 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-emerald-400">Plus:</strong> Sangat cepat (1–3 bln), modal Rp 0, bebas sengketa proyek.</li>
+                    <li><strong class="text-rose-400">Minus:</strong> Valuasi termurah (~Rp 750 rb/m²) karena pembeli memotong beban urug 2,5 m.</li>
+                  </ul>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+                  Target waktu: <span class="text-slate-200 font-semibold">1 - 3 Bulan</span>
+                </div>
+              </label>
+
+              <!-- Opsi B -->
+              <label class="relative flex flex-col justify-between p-5 rounded-xl border-2 border-slate-700/80 bg-slate-900/70 hover:border-emerald-500/50 transition cursor-pointer">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-800">Opsi 2 (Rekomendasi)</span>
+                    <input type="radio" name="opsi_eksekusi" value="alih_lsd_global" class="text-emerald-500 focus:ring-emerald-500">
+                  </div>
+                  <h4 class="font-bold text-white text-base">Alih Status LSD & Jual Global Rp 1,5 Jt/m²</h4>
+                  <p class="text-xs text-slate-400 mt-2">Urus perizinan alih fungsi LSD dulu, jual utuh ke investor tanpa timbun sendiri.</p>
+                  <ul class="text-xs text-slate-300 mt-3 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-emerald-400">Plus:</strong> Nilai bersih optimal (~Rp 7,18 Miliar), bebas biaya urug Rp 1,3 M.</li>
+                    <li><strong class="text-amber-400">Minus:</strong> Memerlukan waktu & biaya pengurusan izin tata ruang di awal.</li>
+                  </ul>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+                  Target waktu: <span class="text-slate-200 font-semibold">6 - 12 Bulan</span>
+                </div>
+              </label>
+
+              <!-- Opsi C -->
+              <label class="relative flex flex-col justify-between p-5 rounded-xl border-2 border-slate-700/80 bg-slate-900/70 hover:border-emerald-500/50 transition cursor-pointer">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-purple-950/80 text-purple-300 border border-purple-800">Opsi 3</span>
+                    <input type="radio" name="opsi_eksekusi" value="kavling_develop" class="text-emerald-500 focus:ring-emerald-500">
+                  </div>
+                  <h4 class="font-bold text-white text-base">Timbun, Kavling & Develop Mandiri</h4>
+                  <p class="text-xs text-slate-400 mt-2">Urug rawa 2,5 m, potong 30% untuk jalan, jual eceran Rp 2,2 Jt/m².</p>
+                  <ul class="text-xs text-slate-300 mt-3 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-emerald-400">Plus:</strong> Harga jual per meter tertinggi di pasar eceran.</li>
+                    <li><strong class="text-rose-400">Minus:</strong> Beban urug Rp 1,3 Milyar, hilang 30% lahan, pencairan lama (18–36 bln).</li>
+                  </ul>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+                  Target waktu: <span class="text-slate-200 font-semibold">18 - 36 Bulan</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pertanyaan 4: Skema Pembagian -->
+          <div class="wizard-step space-y-3 hidden" id="step-4">
+            <label class="block text-sm font-semibold text-slate-200">
+              <span class="text-emerald-400">Pertanyaan 4:</span> Bagaimana skema penerimaan dana yang dapat Anda terima?
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="skema_bayar" value="serentak" required class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-slate-100 block">Harus Sekaligus Lunas (Serentak di Notaris)</span>
+                  <p class="text-xs text-slate-400 mt-1">Dana warisan harus diterima utuh sekaligus saat tanda tangan akta jual beli.</p>
+                </div>
+              </label>
+              <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-700/70 bg-slate-900/50 hover:bg-slate-800/60 cursor-pointer transition">
+                <input type="radio" name="skema_bayar" value="bertahap" class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                <div>
+                  <span class="font-semibold text-sm text-slate-100 block">Bersedia Bertahap (Termin / per Kavling Laku)</span>
+                  <p class="text-xs text-slate-400 mt-1">Tidak masalah dana cair bertahap mengikuti termin pembeli atau serapan kavling.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pertanyaan 5: Komitmen Musyawarah -->
+          <div class="wizard-step space-y-4 hidden" id="step-5">
+            <div>
+              <label class="block text-sm font-semibold text-slate-200 mb-2">
+                <span class="text-emerald-400">Pertanyaan 5:</span> Komitmen Musyawarah & Syariah
+              </label>
+              <label class="flex items-center gap-3 p-4 rounded-xl border border-emerald-600/30 bg-emerald-950/20 cursor-pointer hover:bg-emerald-900/30 transition">
+                <input type="checkbox" id="komitmen-musyawarah" required class="w-5 h-5 rounded text-emerald-500 focus:ring-emerald-500 bg-slate-900 border-slate-700">
+                <span class="text-sm text-slate-300 leading-relaxed">
+                  Saya berkomitmen menerima hasil keputusan musyawarah suara terbanyak dan mendukung pembagian sesuai hukum waris Islam (12 saham), serta menjunjung kerukunan keluarga besar.
+                </span>
+              </label>
+            </div>
+
+            <div class="mt-4">
+              <label class="block text-sm font-semibold text-slate-200 mb-2">
+                Kekhawatiran / Pesan Khusus untuk Eksekutor (Opsional):
+              </label>
+              <textarea id="catatan-khusus" rows="3" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3.5 text-sm text-slate-200 placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 outline-none transition" placeholder="Tuliskan masukan harga batas bawah, saran pembeli, atau kendala pribadi..."></textarea>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="flex items-center justify-between pt-5 border-t border-slate-700/60 mt-8 relative z-10">
+            <button type="button" id="btn-prev" onclick="prevStep()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition hidden items-center border border-slate-700">
+              <i class="fa-solid fa-arrow-left mr-2"></i> Sebelumnya
+            </button>
+            <div class="flex-grow"></div>
+            <button type="button" id="btn-next" onclick="nextStep()" class="px-6 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-400 border border-emerald-500/30 font-semibold text-sm transition flex items-center shadow-lg active:scale-95">
+              Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+            <button type="submit" id="btn-submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition hidden items-center gap-2 active:scale-95">
+              <i class="fa-solid fa-check"></i>
+              <span id="btn-submit-text">Simpan Jawaban Responden</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: DASBOR & REKAPITULASI HASIL (ADMIN PROTECTED) -->
+    <!-- ================================================================= -->
+    <section id="tab-dashboard" class="hidden space-y-6">
+
+      <!-- Control Panel Eksekutor -->
+      <div class="glass-card p-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-950/30 to-slate-900 relative overflow-hidden shadow-lg shadow-amber-900/10">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1 flex items-center gap-2">
+              <i class="fa-solid fa-user-shield text-amber-400"></i>
+              Control Panel Eksekutor
+            </h2>
+            <p class="text-xs text-slate-300">Kelola jalannya musyawarah, buka/tutup akses voting, dan pantau data real-time.</p>
+          </div>
+          <div class="flex items-center gap-3 w-full md:w-auto">
+            <button id="btn-toggle-musyawarah" onclick="toggleMusyawarah()" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-sm transition shadow-lg flex items-center justify-center gap-2">
+              <!-- JS will populate -->
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Bar 7 Anggota -->
+      <div class="glass-card p-5 rounded-2xl border border-slate-700/60">
+        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-user-check text-emerald-400"></i>
+          Status Pengisian 7 Ahli Waris Hidup
+        </h3>
+        <div id="member-status-pills" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-card p-5 rounded-2xl border border-slate-700/60">
+          <h4 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-pie-chart text-emerald-400"></i>
+            Distribusi Pilihan Opsi Eksekusi
+          </h4>
+          <p class="text-xs text-slate-400 mb-4">Pilihan strategi aset waris oleh 7 anggota keluarga</p>
+          <div class="h-64 flex items-center justify-center relative">
+            <canvas id="chart-opsi"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border border-slate-700/60">
+          <h4 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-gauge-high text-amber-400"></i>
+            Tingkat Urgensi Likuiditas Dana
+          </h4>
+          <p class="text-xs text-slate-400 mb-4">Kecepatan waktu pencairan uang yang diharapkan</p>
+          <div class="h-64 flex items-center justify-center relative">
+            <canvas id="chart-urgensi"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table: Rincian Lengkap Jawaban Tiap Anggota -->
+      <div class="glass-card p-5 rounded-2xl border border-slate-700/60 overflow-hidden">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+          <div>
+            <h4 class="text-sm font-bold text-white">Matriks Rekapitulasi Suara 7 Saudara</h4>
+            <p class="text-xs text-slate-400">Transparansi jawaban untuk bahan rapat musyawarah pleno</p>
+          </div>
+          <button onclick="copySummaryToClipboard()" class="px-3.5 py-1.5 rounded-lg bg-emerald-600/30 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition">
+            <i class="fa-solid fa-copy"></i>
+            <span>Salin Rekap untuk WhatsApp</span>
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase font-semibold">
+              <tr>
+                <th class="p-3">Anggota</th>
+                <th class="p-3">Gender</th>
+                <th class="p-3">Saham Faraidh</th>
+                <th class="p-3">Urgensi Dana</th>
+                <th class="p-3">Kesiapan Modal</th>
+                <th class="p-3">Opsi Favorit</th>
+                <th class="p-3">Skema Bayar</th>
+                <th class="p-3">Catatan Khusus</th>
+              </tr>
+            </thead>
+            <tbody id="table-rekap-body" class="divide-y divide-slate-800">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sintesis Keputusan Eksekutor -->
+      <div id="rekomendasi-box" class="glass-card p-5 rounded-2xl border border-emerald-500/30 bg-emerald-950/20">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB BARU: MANAJEMEN AGENDA MUSYAWARAH (ADMIN ONLY) -->
+    <!-- ================================================================= -->
+    <section id="tab-manajemen" class="hidden space-y-6">
+      <!-- Header / Toolbar -->
+      <div class="glass-card p-6 rounded-2xl border border-slate-700/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-folder-open text-emerald-400"></i>
+            Kelola Agenda Musyawarah
+          </h2>
+          <p class="text-sm text-slate-400">Buat, jadwalkan, dan kelola sesi musyawarah keluarga.</p>
+        </div>
+        <button onclick="openModalAgenda()" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 transition flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i> Buat Musyawarah Baru
+        </button>
+      </div>
+
+      <!-- Grid Cards Agenda -->
+      <div id="agenda-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Akan diisi oleh JavaScript -->
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB BARU: PENGATURAN ANGGOTA (ADMIN ONLY) -->
+    <!-- ================================================================= -->
+    <section id="tab-pengaturan" class="hidden space-y-6">
+      <div class="glass-card p-6 rounded-2xl border border-slate-700/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-users-cog text-emerald-400"></i>
+            Pengaturan Profil Ahli Waris
+          </h2>
+          <p class="text-sm text-slate-400">Sesuaikan nama panggil, PIN akses rahasia, dan foto profil 7 bersaudara.</p>
+        </div>
+      </div>
+
+      <div id="pengaturan-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- JS populates this -->
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: KALKULATOR TEKNIS & SIMULASI FARAIDH 12 SAHAM -->
+    <!-- ================================================================= -->
+    <section id="tab-kalkulator" class="hidden space-y-6">
+
+      <!-- Technical Parameters Input -->
+      <div class="glass-card p-6 rounded-2xl border border-slate-700/60">
+        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-2">
+          <i class="fa-solid fa-sliders text-emerald-400"></i>
+          Parameter Lahan Rawa & Asumsi Biaya
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-400 mb-6">
+          Sesuaikan parameter teknis untuk menghitung volume urugan rawa dan melihat proyeksi hasil bersih Faraidh.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Luas Lahan (m²)</label>
+            <input type="number" id="calc-luas" value="5216" readonly class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-400 cursor-not-allowed">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Kedalaman Timbun (m)</label>
+            <input type="number" id="calc-kedalaman" value="2.5" step="0.1" oninput="recalculateOptions()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-emerald-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Harga Urug Padat / m³ (Rp)</label>
+            <input type="number" id="calc-harga-timbun" value="100000" step="5000" oninput="recalculateOptions()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-emerald-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Biaya Alih LSD & Notaris (Rp)</label>
+            <input type="number" id="calc-biaya-lsd" value="250000000" step="10000000" oninput="recalculateOptions()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-emerald-500 outline-none">
+          </div>
+        </div>
+
+        <div class="mt-4 p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 text-xs flex flex-wrap items-center justify-between gap-2">
+          <div class="text-slate-300">
+            Total Kebutuhan Timbunan: <strong id="calc-volume-timbun" class="text-emerald-400">13.040 m³</strong> |
+            Estimasi Modal Urug: <strong id="calc-total-biaya-urug" class="text-amber-400">Rp 1.304.000.000</strong>
+          </div>
+          <span class="text-[11px] text-slate-400 italic">*Beban urug Rp 1,3 Milyar ini tidak perlu ditanggung keluarga pada Opsi 1 dan Opsi 2.</span>
+        </div>
+      </div>
+
+      <!-- Ringkasan Finansial 3 Opsi -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Opsi 1 -->
+        <div class="glass-card p-5 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold px-2.5 py-1 rounded bg-slate-800 text-slate-300">OPSI 1</span>
+              <span class="text-xs text-rose-400 font-semibold"><i class="fa-solid fa-bolt mr-1"></i>Paling Cepat</span>
+            </div>
+            <h4 class="text-base font-bold text-white">Jual Langsung As-Is (Mentah)</h4>
+            <p class="text-xs text-slate-400 mt-1 mb-4">Dijual borongan rawa tanpa timbun & tanpa izin LSD.</p>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Harga Jual:</span>
+                <span class="font-semibold text-slate-200">Rp 750.000 / m²</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Penerimaan Kotor:</span>
+                <span class="font-semibold text-slate-200" id="opsi1-gross">Rp 3.912.000.000</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Biaya Pajak & Broker (5%):</span>
+                <span class="font-semibold text-rose-400" id="opsi1-tax">Rp 195.600.000</span>
+              </div>
+              <div class="flex justify-between pt-2 text-sm font-bold">
+                <span class="text-emerald-400">Total Bersih Keluarga:</span>
+                <span class="text-emerald-400" id="opsi1-net">Rp 3.716.400.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800/80 space-y-1 text-xs">
+            <div class="flex justify-between text-slate-300">
+              <span>Per Pria (2 Saham):</span>
+              <strong class="text-white" id="opsi1-per-pria">Rp 619,4 Jt</strong>
+            </div>
+            <div class="flex justify-between text-slate-300">
+              <span>Per Wanita / Almh (1 Saham):</span>
+              <strong class="text-white" id="opsi1-per-wanita">Rp 309,7 Jt</strong>
+            </div>
+            <div class="text-[11px] text-slate-400 mt-2">Durasi: <strong>1 - 3 Bulan</strong></div>
+          </div>
+        </div>
+
+        <!-- Opsi 2 -->
+        <div class="glass-card p-5 rounded-2xl border-2 border-emerald-500/50 relative flex flex-col justify-between shadow-lg shadow-emerald-950/40">
+          <div class="absolute -top-3 right-4 bg-emerald-500 text-slate-950 text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full">
+            Rekomendasi Ideal
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-700">OPSI 2</span>
+              <span class="text-xs text-emerald-400 font-semibold"><i class="fa-solid fa-crown mr-1"></i>Nilai Bersih Optimal</span>
+            </div>
+            <h4 class="text-base font-bold text-white">Alih Status LSD & Jual Global</h4>
+            <p class="text-xs text-slate-400 mt-1 mb-4">Izin LSD dibereskan dulu, lalu tanah dijual utuh Rp 1,5 Jt/m².</p>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Harga Jual Kesepakatan:</span>
+                <span class="font-semibold text-emerald-300">Rp 1.500.000 / m²</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Penerimaan Kotor:</span>
+                <span class="font-semibold text-slate-200" id="opsi2-gross">Rp 7.824.000.000</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Biaya Alih LSD:</span>
+                <span class="font-semibold text-amber-400" id="opsi2-lsd">Rp 250.000.000</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Biaya Pajak & Legal (5%):</span>
+                <span class="font-semibold text-rose-400" id="opsi2-tax">Rp 391.200.000</span>
+              </div>
+              <div class="flex justify-between pt-2 text-sm font-bold">
+                <span class="text-emerald-400">Total Bersih Keluarga:</span>
+                <span class="text-emerald-400" id="opsi2-net">Rp 7.182.800.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800/80 space-y-1 text-xs">
+            <div class="flex justify-between text-slate-300">
+              <span>Per Pria (2 Saham):</span>
+              <strong class="text-emerald-400 text-sm" id="opsi2-per-pria">Rp 1,197 Milyar</strong>
+            </div>
+            <div class="flex justify-between text-slate-300">
+              <span>Per Wanita / Almh (1 Saham):</span>
+              <strong class="text-emerald-400 text-sm" id="opsi2-per-wanita">Rp 598,5 Juta</strong>
+            </div>
+            <div class="text-[11px] text-slate-400 mt-2">Durasi: <strong>6 - 12 Bulan</strong> | Kenaikan: <strong>+93% vs Opsi 1</strong></div>
+          </div>
+        </div>
+
+        <!-- Opsi 3 -->
+        <div class="glass-card p-5 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold px-2.5 py-1 rounded bg-purple-950 text-purple-300 border border-purple-800">OPSI 3</span>
+              <span class="text-xs text-purple-400 font-semibold"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Risiko Modal Besar</span>
+            </div>
+            <h4 class="text-base font-bold text-white">Timbun, Kavling & Develop</h4>
+            <p class="text-xs text-slate-400 mt-1 mb-4">Urug rawa 2,5 m, hilang jalan 30%, jual eceran Rp 2,2 Jt/m².</p>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Luas Efektif (70%):</span>
+                <span class="font-semibold text-slate-200">± 3.651 m²</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Penerimaan Kotor Kavling:</span>
+                <span class="font-semibold text-slate-200" id="opsi3-gross">Rp 8.032.640.000</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Total Biaya Urug (2,5 m):</span>
+                <span class="font-semibold text-rose-400" id="opsi3-urug">Rp 1.304.000.000</span>
+              </div>
+              <div class="flex justify-between pb-1 border-b border-slate-800">
+                <span class="text-slate-400">Infrastruktur & Izin:</span>
+                <span class="font-semibold text-rose-400" id="opsi3-infra">Rp 650.000.000</span>
+              </div>
+              <div class="flex justify-between pt-2 text-sm font-bold">
+                <span class="text-purple-400">Total Bersih Keluarga:</span>
+                <span class="text-purple-400" id="opsi3-net">Rp 6.078.640.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800/80 space-y-1 text-xs">
+            <div class="flex justify-between text-slate-300">
+              <span>Per Pria (2 Saham):</span>
+              <strong class="text-purple-300" id="opsi3-per-pria">Rp 1,013 Milyar</strong>
+            </div>
+            <div class="flex justify-between text-slate-300">
+              <span>Per Wanita / Almh (1 Saham):</span>
+              <strong class="text-purple-300" id="opsi3-per-wanita">Rp 506,5 Juta</strong>
+            </div>
+            <div class="text-[11px] text-slate-400 mt-2">Durasi: <strong>18 - 36 Bulan</strong> | <em>Net cash</em> lebih kecil dari Opsi 2.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TABEL DETAIL FARAIDH ISLAM (12 SAHAM) -->
+      <div class="glass-card p-6 rounded-2xl border border-emerald-500/40">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-3 border-b border-slate-700">
+          <div>
+            <h4 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-table-list text-emerald-400"></i>
+              Distribusi Faraidh 12 Saham (4 Pria, 3 Wanita Hidup, 1 Almh. Wanita)
+            </h4>
+            <p class="text-xs text-slate-400">Nominal rupiah bersih (*net proceeds*) yang diterima setiap ahli waris</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-300 font-semibold">Tampilkan Skenario:</span>
+            <select id="select-opsi-faraidh" onchange="renderFaraidhTable()" class="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer">
+              <option value="opsi2" selected>Opsi 2: Alih LSD & Rp 1,5 Jt/m² (Rekomendasi)</option>
+              <option value="opsi1">Opsi 1: Jual Mentah As-Is</option>
+              <option value="opsi3">Opsi 3: Kavling & Develop Mandiri</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-200">
+            <thead class="bg-slate-800/90 text-slate-400 uppercase font-semibold">
+              <tr>
+                <th class="p-3">No</th>
+                <th class="p-3">Nama Ahli Waris</th>
+                <th class="p-3">Status & Hubungan</th>
+                <th class="p-3 text-center">Saham Pokok</th>
+                <th class="p-3 text-center">Persentase</th>
+                <th class="p-3 text-right">Penerimaan Bersih (Rp)</th>
+              </tr>
+            </thead>
+            <tbody id="faraidh-table-body" class="divide-y divide-slate-800">
+              <!-- Populated by JS -->
+            </tbody>
+            <tfoot class="bg-slate-900/90 font-bold border-t-2 border-emerald-500/40">
+              <tr>
+                <td colspan="3" class="p-3 text-white">TOTAL KESELURUHAN (100%)</td>
+                <td class="p-3 text-center text-emerald-400">12 Saham</td>
+                <td class="p-3 text-center text-emerald-400">100,00%</td>
+                <td class="p-3 text-right text-emerald-400 text-sm" id="faraidh-total-net">Rp 7.182.800.000</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="mt-4 text-[11px] text-slate-400 bg-slate-900/50 p-3 rounded-xl border border-slate-800">
+          <strong class="text-amber-300"><i class="fa-solid fa-scale-balanced mr-1"></i>Catatan Hukum Waris:</strong> Porsi almarhumah saudari perempuan ke-8 sebesar <strong>1 saham (8,33%)</strong> dialokasikan kepada anak/ahli waris sah almarhumah (cucu pewaris) berdasarkan ketentuan Ahli Waris Pengganti (KHI Pasal 185) / Munasakhat syariah.
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform transition-all duration-300 translate-y-20 opacity-0 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 shadow-2xl text-sm">
+    <div id="toast-icon" class="text-emerald-400 text-base"><i class="fa-solid fa-circle-check"></i></div>
+    <span id="toast-msg" class="text-slate-100 font-medium">Pemberitahuan</span>
+  </div>
+
+  <!-- Modal Dialog Buat Agenda Musyawarah -->
+  <div id="modal-create-agenda" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
+    <div class="glass-card w-full max-w-md p-6 rounded-2xl border border-slate-700/60 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-700">
+        <div class="flex items-center gap-2.5 text-emerald-400">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+            <i class="fa-solid fa-calendar-plus"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base">Buat Musyawarah</h3>
+            <p class="text-[11px] text-slate-400">Jadwalkan agenda baru</p>
+          </div>
+        </div>
+        <button onclick="closeModalAgenda()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-create-agenda" onsubmit="handleCreateAgendaSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Topik / Judul Musyawarah</label>
+          <input type="text" id="input-agenda-title" placeholder="Contoh: Musyawarah Pembagian Harta" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tanggal Pelaksanaan</label>
+          <input type="date" id="input-agenda-date" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Deskripsi Singkat (Opsional)</label>
+          <textarea id="input-agenda-desc" rows="2" placeholder="Tuliskan keterangan..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+        </div>
+        
+        <button type="submit" class="w-full py-3 mt-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition">
+          Simpan Agenda
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Dialog Login Admin -->
+  <div id="modal-admin-login" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
+    <div class="glass-card w-full max-w-md p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-700">
+        <div class="flex items-center gap-2.5 text-amber-400">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base">Autentikasi Eksekutor</h3>
+            <p class="text-[11px] text-slate-400">Verifikasi akses kontrol administratif</p>
+          </div>
+        </div>
+        <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleAdminLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Masukkan PIN Eksekutor</label>
+          <div class="relative">
+            <input type="password" id="admin-pin-input" placeholder="Masukkan PIN (Default: 7777)" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none">
+            <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-200">
+              <i id="pin-eye-icon" class="fa-solid fa-eye text-sm"></i>
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1.5">
+            <i class="fa-solid fa-circle-info mr-1"></i>PIN Default Eksekutor: <strong class="text-amber-400">7777</strong>
+          </p>
+        </div>
+
+        <div id="login-error-msg" class="hidden p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs"></div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeAdminModal()" class="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200 rounded-lg">
+            Batal
+          </button>
+          <button type="submit" class="px-5 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold hover:from-amber-400 hover:to-amber-500 transition shadow-lg shadow-amber-500/20">
+            Masuk Sebagai Eksekutor
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi Reset Data -->
+  <div id="modal-confirm-reset" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
+    <div class="glass-card w-full max-w-sm p-5 rounded-2xl border border-rose-500/40 shadow-2xl space-y-4">
+      <div class="flex items-center gap-3 text-rose-400">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-white text-sm">Hapus Semua Respon?</h4>
+          <p class="text-xs text-slate-400">Tindakan ini akan mengosongkan isian suara 7 anggota keluarga.</p>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeResetModal()" class="px-3 py-1.5 text-xs text-slate-300 hover:text-white rounded-lg">Batal</button>
+        <button onclick="executeResetData()" class="px-4 py-1.5 text-xs font-semibold rounded-lg bg-rose-600 hover:bg-rose-500 text-white transition">Hapus Data</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Status Auth Admin
+    let isAdmin = false;
+    const ADMIN_CREDENTIAL_PIN = '7777';
+    let currentActiveTab = 'tab-kuesioner';
+    let pendingRedirectTab = null;
+
+    // Wizard Variables
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    // 7 Saudara Aktif yang mengisi Kuesioner (4 Pria, 3 Wanita)
+    const baseAnggotaList = [
+      { id: 'Syaifullah', nama: 'Syaifullah', gender: 'Pria', saham: 2 },
+      { id: 'Fachruddin', nama: 'Fachruddin', gender: 'Pria', saham: 2 },
+      { id: 'Afdhal Muttaqin', nama: 'Afdhal Muttaqin', gender: 'Pria', saham: 2 },
+      { id: 'M. Iqbal Sabrina', nama: 'M. Iqbal Sabrina', gender: 'Pria', saham: 2 },
+      { id: 'Suryani', nama: 'Suryani', gender: 'Wanita', saham: 1 },
+      { id: 'Suryati', nama: 'Suryati', gender: 'Wanita', saham: 1 },
+      { id: 'Salmaini', nama: 'Salmaini', gender: 'Wanita', saham: 1 },
+    ];
+    let anggotaList = [...baseAnggotaList];
+
+    // Daftar Lengkap 8 Ahli Waris Faraidh (Termasuk Almh. Wanita Saudari ke-8)
+    const ahliWarisFaraidh = [
+      { no: 1, nama: 'Syaifullah', status: 'Anak Laki-laki Kandung (Hidup)', saham: 2, persen: '16,67%' },
+      { no: 2, nama: 'Fachruddin', status: 'Anak Laki-laki Kandung (Hidup)', saham: 2, persen: '16,67%' },
+      { no: 3, nama: 'Afdhal Muttaqin', status: 'Anak Laki-laki Kandung (Hidup)', saham: 2, persen: '16,67%' },
+      { no: 4, nama: 'M. Iqbal Sabrina', status: 'Anak Laki-laki Kandung (Hidup)', saham: 2, persen: '16,67%' },
+      { no: 5, nama: 'Suryani', status: 'Anak Perempuan Kandung (Hidup)', saham: 1, persen: '8,33%' },
+      { no: 6, nama: 'Suryati', status: 'Anak Perempuan Kandung (Hidup)', saham: 1, persen: '8,33%' },
+      { no: 7, nama: 'Salmaini', status: 'Anak Perempuan Kandung (Hidup)', saham: 1, persen: '8,33%' },
+      { no: 8, nama: 'Almh. Saudari ke-8', status: 'Anak Perempuan (Almarhumah - Ahli Waris Pengganti)', saham: 1, persen: '8,33%', isAlmh: true },
+    ];
+
+    // Penyimpanan Respon Anggota
+    let responses = {};
+
+    // Chart instances
+    let chartOpsiInstance = null;
+    let chartUrgensiInstance = null;
+    let isMusyawarahActive = localStorage.getItem('sabrina_musyawarah_active') === 'true';
+
+    // Nilai net terkini dari kalkulator untuk 3 opsi
+    let netValues = {
+      opsi1: 3716400000,
+      opsi2: 7182800000,
+      opsi3: 6078640000
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check if logged in as Cucu -> Redirect back to Home
+      if (sessionStorage.getItem('sabrina_cucu') === 'true') {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      populateMemberDropdown();
+      
+      // Auto-select user if logged in from home page
+      const loggedInUser = sessionStorage.getItem('sabrina_user');
+      if (loggedInUser) {
+        const selectEl = document.getElementById('pilih-anggota');
+        selectEl.value = loggedInUser;
+      }
+
+      // Auto-login Admin if logged in from home page
+      if (sessionStorage.getItem('sabrina_admin') === 'true') {
+        isAdmin = true;
+      }
+
+      if (isAdmin) {
+        // Let it render default state first, then switch
+        setTimeout(() => switchTab('tab-dashboard'), 10);
+      }
+
+      renderMemberPills();
+      recalculateOptions();
+      initAgenda(); // Initialize Agenda UI
+      initSettings(); // Initialize Settings UI
+      initCharts();
+      updateDashboard();
+      updateAuthUI();
+      updateMusyawarahUI();
+      renderFaraidhTable();
+      updateWizardUI(); // Initialize Wizard UI
+      
+      // Muat data anggota terpilih
+      loadMemberDataIntoForm();
+    });
+
+    // ============================================
+    // WIZARD LOGIC
+    // ============================================
+    function updateWizardUI() {
+      // Sembunyikan semua step
+      for (let i = 1; i <= totalSteps; i++) {
+        document.getElementById('step-' + i).classList.add('hidden');
+      }
+      // Tampilkan step sekarang
+      document.getElementById('step-' + currentStep).classList.remove('hidden');
+
+      // Update progress bar
+      const progress = (currentStep / totalSteps) * 100;
+      document.getElementById('wizard-progress-bar').style.width = progress + '%';
+      document.getElementById('wizard-step-text').innerText = `Langkah ${currentStep} dari ${totalSteps}`;
+      document.getElementById('wizard-progress-text').innerText = `${Math.round(progress)}% Selesai`;
+
+      // Update buttons
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      const btnSubmit = document.getElementById('btn-submit');
+
+      if (currentStep === 1) {
+        btnPrev.classList.add('hidden');
+        btnPrev.classList.remove('flex');
+      } else {
+        btnPrev.classList.remove('hidden');
+        btnPrev.classList.add('flex');
+      }
+
+      if (currentStep === totalSteps) {
+        btnNext.classList.add('hidden');
+        btnNext.classList.remove('flex');
+        btnSubmit.classList.remove('hidden');
+        btnSubmit.classList.add('flex');
+      } else {
+        btnNext.classList.remove('hidden');
+        btnNext.classList.add('flex');
+        btnSubmit.classList.add('hidden');
+        btnSubmit.classList.remove('flex');
+      }
+    }
+
+    function validateStep(step) {
+      const stepEl = document.getElementById('step-' + step);
+      const requiredInputs = stepEl.querySelectorAll('input[required]');
+      let valid = true;
+
+      requiredInputs.forEach(input => {
+        if (input.type === 'radio') {
+          const group = stepEl.querySelectorAll(`input[name="${input.name}"]`);
+          const isChecked = Array.from(group).some(r => r.checked);
+          if (!isChecked) {
+            valid = false;
+          }
+        } else if (input.type === 'checkbox') {
+          if (!input.checked) {
+            valid = false;
+          }
+        } else {
+          if (!input.value.trim()) {
+            valid = false;
+          }
+        }
+      });
+
+      if (!valid) {
+        showToast('Silakan lengkapi pertanyaan wajib pada langkah ini.', false);
+      }
+      return valid;
+    }
+
+    function nextStep() {
+      if (validateStep(currentStep)) {
+        if (currentStep < totalSteps) {
+          currentStep++;
+          updateWizardUI();
+        }
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateWizardUI();
+      }
+    }
+    // ============================================
+    // LOGIKA MUSYAWARAH ACTIVE STATE
+    // ============================================
+    function toggleMusyawarah() {
+      isMusyawarahActive = !isMusyawarahActive;
+      localStorage.setItem('sabrina_musyawarah_active', isMusyawarahActive);
+      
+      // Jika dihidupkan/dimatikan, sinkronisasi dengan list agenda jika ada yang running
+      if (isMusyawarahActive) {
+        // Asumsi agenda default (yang pertama) di set ke running
+        let list = JSON.parse(localStorage.getItem('sabrina_agenda_list')) || [];
+        if(list.length > 0 && list[0].status === 'scheduled') {
+           list[0].status = 'running';
+           localStorage.setItem('sabrina_agenda_list', JSON.stringify(list));
+           renderAgendaCards();
+        }
+      }
+      
+      updateMusyawarahUI();
+      showToast(isMusyawarahActive ? 'Akses Voting DIBUKA!' : 'Akses Voting DITUTUP.', isMusyawarahActive);
+    }
+
+    function updateMusyawarahUI() {
+      const btn = document.getElementById('btn-toggle-musyawarah');
+      const lockedOverlay = document.getElementById('kuesioner-locked');
+      
+      if (btn) {
+        if (isMusyawarahActive) {
+          btn.className = 'w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-sm transition shadow-lg flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-500 text-white shadow-rose-500/20';
+          btn.innerHTML = '<i class="fa-solid fa-stop"></i> Tutup Musyawarah';
+        } else {
+          btn.className = 'w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-sm transition shadow-lg flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20 ring-2 ring-emerald-500/50 ring-offset-2 ring-offset-slate-900';
+          btn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Musyawarah Sekarang';
+        }
+      }
+
+      if (lockedOverlay) {
+        if (isMusyawarahActive) {
+          lockedOverlay.classList.add('hidden');
+        } else {
+          // Selalu kunci form jika belum dimulai (bahkan untuk admin agar admin tau tampilannya)
+          lockedOverlay.classList.remove('hidden');
+        }
+      }
+    }
+
+    // ============================================
+    // LOGIKA MANAJEMEN AGENDA MUSYAWARAH
+    // ============================================
+    function initAgenda() {
+      let list = localStorage.getItem('sabrina_agenda_list');
+      if (!list) {
+        // Data Dummy Awal
+        list = [
+          {
+            id: 'agenda-' + Date.now(),
+            title: 'Musyawarah Pembagian Harta (Utama)',
+            date: new Date().toISOString().split('T')[0],
+            desc: 'Pemetaan opsi strategi pembagian aset',
+            status: isMusyawarahActive ? 'running' : 'scheduled'
+          }
+        ];
+        localStorage.setItem('sabrina_agenda_list', JSON.stringify(list));
+      }
+      renderAgendaCards();
+    }
+
+    function renderAgendaCards() {
+      const grid = document.getElementById('agenda-grid');
+      if (!grid) return;
+      
+      const list = JSON.parse(localStorage.getItem('sabrina_agenda_list')) || [];
+      grid.innerHTML = '';
+      
+      list.forEach(agenda => {
+        const isRunning = agenda.status === 'running';
+        const isDone = agenda.status === 'finished';
+        
+        let statusBadge = '';
+        if (isRunning) statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">SEDANG BERJALAN</span>';
+        else if (isDone) statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-700/50 text-slate-400 border border-slate-600/30">SELESAI</span>';
+        else statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">TERJADWAL</span>';
+
+        let actionBtn = '';
+        if (isRunning) {
+          actionBtn = `<button onclick="stopAgenda('${agenda.id}')" class="w-full mt-4 py-2 rounded-lg bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs font-bold transition">Tutup Agenda Ini</button>`;
+        } else if (isDone) {
+          actionBtn = `<button class="w-full mt-4 py-2 rounded-lg bg-slate-800 text-slate-500 cursor-not-allowed text-xs font-bold">Telah Ditutup</button>`;
+        } else {
+          actionBtn = `<button onclick="startAgenda('${agenda.id}')" class="w-full mt-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 text-xs font-bold transition flex justify-center items-center gap-1.5"><i class="fa-solid fa-play"></i> Mulai Sekarang</button>`;
+        }
+
+        // Format tanggal (YYYY-MM-DD to DD-MM-YYYY)
+        const dateParts = agenda.date.split('-');
+        const dateFormatted = dateParts.length === 3 ? `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}` : agenda.date;
+
+        grid.innerHTML += `
+          <div class="glass-card p-5 rounded-2xl border ${isRunning ? 'border-amber-500/50 shadow-lg shadow-amber-900/10' : 'border-slate-700/60'} flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                ${statusBadge}
+                <div class="text-xs text-slate-400 flex items-center gap-1.5 font-medium"><i class="fa-solid fa-calendar text-slate-500"></i> ${dateFormatted}</div>
+              </div>
+              <h3 class="font-bold text-white text-base leading-tight mb-2">${agenda.title}</h3>
+              <p class="text-xs text-slate-400 line-clamp-2">${agenda.desc || 'Tidak ada keterangan.'}</p>
+            </div>
+            ${actionBtn}
+          </div>
+        `;
+      });
+    }
+
+    function openModalAgenda() {
+      document.getElementById('modal-create-agenda').classList.remove('hidden');
+      document.getElementById('form-create-agenda').reset();
+    }
+
+    function closeModalAgenda() {
+      document.getElementById('modal-create-agenda').classList.add('hidden');
+    }
+
+    function handleCreateAgendaSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('input-agenda-title').value;
+      const date = document.getElementById('input-agenda-date').value;
+      const desc = document.getElementById('input-agenda-desc').value;
+      
+      const list = JSON.parse(localStorage.getItem('sabrina_agenda_list')) || [];
+      list.unshift({
+        id: 'agenda-' + Date.now(),
+        title,
+        date,
+        desc,
+        status: 'scheduled'
+      });
+      localStorage.setItem('sabrina_agenda_list', JSON.stringify(list));
+      
+      closeModalAgenda();
+      renderAgendaCards();
+      showToast('Agenda musyawarah berhasil dijadwalkan!');
+    }
+
+    function startAgenda(id) {
+      const list = JSON.parse(localStorage.getItem('sabrina_agenda_list')) || [];
+      const item = list.find(x => x.id === id);
+      if(item) {
+        // Set all others to finished if they were running
+        list.forEach(x => { if(x.status === 'running') x.status = 'finished'; });
+        item.status = 'running';
+        localStorage.setItem('sabrina_agenda_list', JSON.stringify(list));
+        
+        // Sync with global isMusyawarahActive
+        isMusyawarahActive = true;
+        localStorage.setItem('sabrina_musyawarah_active', true);
+        
+        renderAgendaCards();
+        updateMusyawarahUI();
+        switchTab('tab-dashboard');
+        showToast('Musyawarah "' + item.title + '" resmi DIMULAI!');
+      }
+    }
+
+    function stopAgenda(id) {
+      const list = JSON.parse(localStorage.getItem('sabrina_agenda_list')) || [];
+      const item = list.find(x => x.id === id);
+      if(item) {
+        item.status = 'finished';
+        localStorage.setItem('sabrina_agenda_list', JSON.stringify(list));
+        
+        isMusyawarahActive = false;
+        localStorage.setItem('sabrina_musyawarah_active', false);
+        
+        renderAgendaCards();
+        updateMusyawarahUI();
+        showToast('Agenda "' + item.title + '" DITUTUP.');
+      }
+    }
+
+    // ============================================
+    // LOGIKA PENGATURAN ANGGOTA
+    // ============================================
+    function initSettings() {
+      const saved = JSON.parse(localStorage.getItem('sabrina_members_settings')) || {};
+      anggotaList = baseAnggotaList.map(a => {
+        return {
+          ...a,
+          nama: saved[a.id]?.nama || a.nama,
+          pin: saved[a.id]?.pin || '',
+          photo: saved[a.id]?.photo || null
+        };
+      });
+      renderSettingsGrid();
+    }
+
+    function renderSettingsGrid() {
+      const grid = document.getElementById('pengaturan-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      
+      anggotaList.forEach(a => {
+        const defaultIcon = a.gender === 'Pria' ? 'fa-user-tie text-blue-400' : 'fa-user text-pink-400';
+        const imgTag = a.photo ? `<img src="${a.photo}" class="w-16 h-16 rounded-full object-cover border-2 border-emerald-500/50">` : `<div class="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center border border-slate-600/50"><i class="fa-solid ${defaultIcon} text-2xl"></i></div>`;
+        
+        grid.innerHTML += `
+          <div class="glass-card p-5 rounded-2xl border border-slate-700/60 space-y-4 relative">
+            <div class="flex items-center gap-4">
+              <label class="relative cursor-pointer group flex-shrink-0">
+                ${imgTag}
+                <div class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                  <i class="fa-solid fa-camera text-white text-xs"></i>
+                </div>
+                <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(event, '${a.id}')">
+              </label>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-slate-400 mb-0.5 truncate">ID: ${a.id}</p>
+                <h4 class="font-bold text-white truncate leading-tight">${a.nama}</h4>
+              </div>
+            </div>
+            
+            <div class="space-y-3 pt-2 border-t border-slate-700/50">
+              <div>
+                <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Nama Tampilan</label>
+                <input type="text" value="${a.nama}" onblur="updateMemberField('${a.id}', 'nama', this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-sm text-white focus:ring-1 focus:ring-emerald-500 outline-none">
+              </div>
+              <div>
+                <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">PIN Rahasia</label>
+                <input type="text" placeholder="PIN Default (Kosong)" value="${a.pin || ''}" onblur="updateMemberField('${a.id}', 'pin', this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-sm text-white focus:ring-1 focus:ring-emerald-500 outline-none">
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function handlePhotoUpload(event, id) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        updateMemberField(id, 'photo', e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateMemberField(id, field, value) {
+      const saved = JSON.parse(localStorage.getItem('sabrina_members_settings')) || {};
+      if (!saved[id]) saved[id] = {};
+      saved[id][field] = value;
+      localStorage.setItem('sabrina_members_settings', JSON.stringify(saved));
+      
+      initSettings(); // Reload Data
+      renderMemberPills(); // Refresh dashboard pills
+      populateMemberDropdown(); // Refresh dropdown
+      showToast('Profil ' + id + ' berhasil diperbarui!');
+    }
+
+    // ============================================
+
+    function openAdminModal() {
+      document.getElementById('modal-admin-login').classList.remove('hidden');
+      document.getElementById('admin-pin-input').value = '';
+      document.getElementById('login-error-msg').classList.add('hidden');
+      setTimeout(() => document.getElementById('admin-pin-input').focus(), 100);
+    }
+
+    function closeAdminModal() {
+      document.getElementById('modal-admin-login').classList.add('hidden');
+      pendingRedirectTab = null;
+    }
+
+    function togglePinVisibility() {
+      const pinInput = document.getElementById('admin-pin-input');
+      const eyeIcon = document.getElementById('pin-eye-icon');
+      if (pinInput.type === 'password') {
+        pinInput.type = 'text';
+        eyeIcon.className = 'fa-solid fa-eye-slash text-sm';
+      } else {
+        pinInput.type = 'password';
+        eyeIcon.className = 'fa-solid fa-eye text-sm';
+      }
+    }
+
+    function handleAdminLoginSubmit(e) {
+      e.preventDefault();
+      const pin = document.getElementById('admin-pin-input').value.trim();
+      const errBox = document.getElementById('login-error-msg');
+
+      if (pin === ADMIN_CREDENTIAL_PIN) {
+        isAdmin = true;
+        closeAdminModal();
+        updateAuthUI();
+        showToast('Login berhasil! Akses Eksekutor dibuka.');
+
+        if (pendingRedirectTab) {
+          const target = pendingRedirectTab;
+          pendingRedirectTab = null;
+          switchTab(target);
+        } else if (currentActiveTab === 'tab-kuesioner') {
+          switchTab('tab-dashboard');
+        }
+      } else {
+        errBox.innerText = 'PIN salah! Gunakan PIN default 7777.';
+        errBox.classList.remove('hidden');
+      }
+    }
+
+    function handleAdminLogout() {
+      isAdmin = false;
+      sessionStorage.removeItem('sabrina_admin');
+      
+      const loggedUser = sessionStorage.getItem('sabrina_user');
+      if (!loggedUser) {
+        window.location.href = 'index.html';
+        return;
+      }
+      
+      updateAuthUI();
+      switchTab('tab-kuesioner');
+      showToast('Berhasil keluar dari mode Eksekutor.');
+    }
+
+    function handleUserLogout() {
+      sessionStorage.removeItem('sabrina_user');
+      sessionStorage.removeItem('sabrina_admin');
+      sessionStorage.removeItem('sabrina_cucu');
+      window.location.href = 'index.html';
+    }
+
+    function updateAuthUI() {
+      const adminActions = document.getElementById('admin-actions-group');
+      const btnContainer = document.getElementById('auth-btn-container');
+      const lockDashboard = document.getElementById('lock-icon-dashboard');
+      const lockKalkulator = document.getElementById('lock-icon-kalkulator');
+      const lockManajemen = document.getElementById('lock-icon-manajemen');
+      const lockPengaturan = document.getElementById('lock-icon-pengaturan');
+      const navDashboard = document.getElementById('nav-tab-dashboard');
+      const navKalkulator = document.getElementById('nav-tab-kalkulator');
+      const navManajemen = document.getElementById('nav-tab-manajemen');
+      const navPengaturan = document.getElementById('nav-tab-pengaturan');
+
+      if (isAdmin) {
+        adminActions.classList.remove('hidden');
+        btnContainer.innerHTML = `
+          <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/40 px-3 py-1 rounded-xl">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300">
+              <i class="fa-solid fa-user-shield text-amber-400"></i>
+              Eksekutor Aktif
+            </span>
+            <button onclick="handleAdminLogout()" class="ml-1 text-[11px] px-2 py-0.5 rounded bg-rose-600/30 text-rose-300 hover:bg-rose-600 hover:text-white transition font-semibold">
+              Keluar
+            </button>
+          </div>
+        `;
+        if (lockDashboard) lockDashboard.classList.add('hidden');
+        if (lockKalkulator) lockKalkulator.classList.add('hidden');
+        if (lockManajemen) lockManajemen.classList.add('hidden');
+        if (lockPengaturan) lockPengaturan.classList.add('hidden');
+        
+        // Show/Hide tabs
+        const navKuesioner = document.getElementById('nav-tab-kuesioner');
+        if (navKuesioner) {
+          navKuesioner.classList.add('hidden');
+          navKuesioner.classList.remove('flex');
+        }
+        if (navDashboard) {
+          navDashboard.classList.remove('hidden');
+          navDashboard.classList.add('flex');
+        }
+        if (navKalkulator) {
+          navKalkulator.classList.remove('hidden');
+          navKalkulator.classList.add('flex');
+        }
+        if (navManajemen) {
+          navManajemen.classList.remove('hidden');
+          navManajemen.classList.add('flex');
+        }
+        if (navPengaturan) {
+          navPengaturan.classList.remove('hidden');
+          navPengaturan.classList.add('flex');
+        }
+      } else {
+        adminActions.classList.add('hidden');
+        
+        const loggedUser = sessionStorage.getItem('sabrina_user');
+        
+        btnContainer.innerHTML = `
+          <div class="flex items-center gap-2">
+            ${loggedUser ? `
+            <button onclick="handleUserLogout()" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-rose-950/50 text-rose-300 border border-rose-500/40 hover:bg-rose-600 hover:text-white transition shadow-sm">
+              <i class="fa-solid fa-power-off"></i> Keluar
+            </button>` : ''}
+          </div>
+        `;
+        
+        // Hide tabs entirely for non-admins
+        if (navDashboard) {
+          navDashboard.classList.add('hidden');
+          navDashboard.classList.remove('flex');
+        }
+        if (navKalkulator) {
+          navKalkulator.classList.add('hidden');
+          navKalkulator.classList.remove('flex');
+        }
+        if (navManajemen) {
+          navManajemen.classList.add('hidden');
+          navManajemen.classList.remove('flex');
+        }
+        if (navPengaturan) {
+          navPengaturan.classList.add('hidden');
+          navPengaturan.classList.remove('flex');
+        }
+        
+        const navKuesioner = document.getElementById('nav-tab-kuesioner');
+        if (navKuesioner) {
+          navKuesioner.classList.remove('hidden');
+          navKuesioner.classList.add('flex');
+        }
+      }
+    }
+
+    function confirmResetData() {
+      if (!isAdmin) {
+        openAdminModal();
+        return;
+      }
+      document.getElementById('modal-confirm-reset').classList.remove('hidden');
+    }
+
+    function closeResetModal() {
+      document.getElementById('modal-confirm-reset').classList.add('hidden');
+    }
+
+    function executeResetData() {
+      closeResetModal();
+      resetData();
+    }
+
+    function showToast(msg, isSuccess = true) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastMsg.innerText = msg;
+      if (isSuccess) {
+        toastIcon.className = 'text-emerald-400 text-base';
+        toastIcon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+      } else {
+        toastIcon.className = 'text-amber-400 text-base';
+        toastIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+
+    function switchTab(tabId) {
+      if ((tabId === 'tab-dashboard' || tabId === 'tab-kalkulator' || tabId === 'tab-manajemen' || tabId === 'tab-pengaturan') && !isAdmin) {
+        pendingRedirectTab = tabId;
+        showToast('Halaman ini memerlukan verifikasi akses Eksekutor/Admin.', false);
+        openAdminModal();
+        return;
+      }
+
+      currentActiveTab = tabId;
+
+      ['tab-kuesioner', 'tab-dashboard', 'tab-kalkulator', 'tab-manajemen', 'tab-pengaturan'].forEach(id => {
+        const el = document.getElementById(id);
+        const nav = document.getElementById('nav-' + id);
+        if (id === tabId) {
+          el.classList.remove('hidden');
+          nav.classList.remove('text-slate-400', 'hover:text-slate-200', 'border-transparent', 'font-medium');
+          nav.classList.add('text-emerald-400', 'border-emerald-500', 'font-semibold');
+        } else {
+          el.classList.add('hidden');
+          nav.classList.remove('text-emerald-400', 'border-emerald-500', 'font-semibold');
+          nav.classList.add('text-slate-400', 'hover:text-slate-200', 'border-transparent', 'font-medium');
+        }
+      });
+
+      if (tabId === 'tab-dashboard') {
+        updateDashboard();
+      }
+    }
+
+    function populateMemberDropdown() {
+      const select = document.getElementById('pilih-anggota');
+      select.innerHTML = '';
+      anggotaList.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.id;
+        opt.textContent = `${m.nama} (${m.gender} - Hak: ${m.saham} Saham / 12)`;
+        select.appendChild(opt);
+      });
+    }
+
+    function loadMemberDataIntoForm() {
+      const selectedId = document.getElementById('pilih-anggota').value;
+      const form = document.getElementById('kuesioner-form');
+      const data = responses[selectedId];
+
+      if (data) {
+        setRadioValue('urgensi', data.urgensi);
+        setRadioValue('kesiapan_modal', data.kesiapan_modal);
+        setRadioValue('opsi_eksekusi', data.opsi_eksekusi);
+        setRadioValue('skema_bayar', data.skema_bayar);
+        document.getElementById('komitmen-musyawarah').checked = !!data.komitmen;
+        document.getElementById('catatan-khusus').value = data.catatan || '';
+        document.getElementById('btn-submit-text').innerText = 'Perbarui Jawaban Responden';
+      } else {
+        form.reset();
+        document.getElementById('komitmen-musyawarah').checked = true;
+        document.getElementById('btn-submit-text').innerText = 'Simpan Jawaban Responden';
+      }
+
+      // Reset Wizard
+      currentStep = 1;
+      updateWizardUI();
+    }
+
+    function setRadioValue(name, val) {
+      const radios = document.querySelectorAll(`input[name="${name}"]`);
+      radios.forEach(r => {
+        r.checked = (r.value === val);
+      });
+    }
+
+    function getRadioValue(name) {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : '';
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      if (!validateStep(currentStep)) return;
+
+      const selectedId = document.getElementById('pilih-anggota').value;
+      const member = anggotaList.find(m => m.id === selectedId);
+      
+      const payload = {
+        username: member.nama,
+        urgensi: getRadioValue('urgensi'),
+        kesiapan_modal: getRadioValue('kesiapan_modal'),
+        opsi_eksekusi: getRadioValue('opsi_eksekusi'),
+        skema_bayar: getRadioValue('skema_bayar'),
+        komitmen: document.getElementById('komitmen-musyawarah').checked,
+        catatan: document.getElementById('catatan-khusus').value.trim(),
+      };
+
+      try {
+        const btn = document.getElementById('btn-submit-text');
+        const originalText = btn.innerText;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+        
+        // Simpan sementara di memori agar UI tetap jalan biarpun DB mati (selama user blm install Docker)
+        responses[selectedId] = {
+          memberId: selectedId,
+          nama: member.nama,
+          gender: member.gender,
+          saham: member.saham,
+          ...payload,
+          timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+        };
+
+        // Kirim ke API
+        await fetch('/api/votes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        showToast(`Jawaban ${member.nama} berhasil disimpan ke Database!`);
+        btn.innerText = originalText;
+      } catch (err) {
+        showToast(`Disimpan secara lokal. Database tidak merespon.`);
+      }
+
+      renderMemberPills();
+      updateDashboard();
+
+      const unvoted = anggotaList.find(m => !responses[m.id]);
+      if (unvoted) {
+        document.getElementById('pilih-anggota').value = unvoted.id;
+        loadMemberDataIntoForm();
+      }
+    }
+
+    function renderMemberPills() {
+      const container = document.getElementById('member-status-pills');
+      container.innerHTML = '';
+
+      let totalFilled = 0;
+      anggotaList.forEach(m => {
+        const isFilled = !!responses[m.id];
+        if (isFilled) totalFilled++;
+
+        const div = document.createElement('div');
+        div.className = `p-2.5 rounded-xl border text-xs flex flex-col justify-between transition ${
+          isFilled 
+            ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300 shadow-sm' 
+            : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:border-slate-600'
+        }`;
+
+        const defaultIcon = m.gender === 'Pria' ? 'fa-user-tie' : 'fa-user';
+        const imgIcon = m.photo ? `<img src="${m.photo}" class="w-10 h-10 rounded-full object-cover border-2 border-emerald-500/50 mb-1">` : `<div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-600/50 mb-1 text-slate-400"><i class="fa-solid ${defaultIcon} text-lg"></i></div>`;
+
+        div.innerHTML = `
+          <div class="flex items-center justify-between mb-2">
+            ${imgIcon}
+            <i class="fa-solid ${isFilled ? 'fa-check text-emerald-400' : 'fa-hourglass-start text-slate-600'} text-lg"></i>
+          </div>
+          <div class="font-bold truncate text-[11px] leading-tight">${m.nama}</div>
+          <div class="text-[9px] mt-1 ${isFilled ? 'text-emerald-400' : 'text-slate-500'}">
+            ${isFilled ? 'Selesai Memilih' : 'Menunggu...'}
+          </div>
+        `;
+        div.onclick = () => {
+          document.getElementById('pilih-anggota').value = m.id;
+          loadMemberDataIntoForm();
+          switchTab('tab-kuesioner');
+        };
+        div.style.cursor = 'pointer';
+        container.appendChild(div);
+      });
+
+      document.getElementById('badge-total-suara').innerText = `${totalFilled}/7`;
+    }
+
+    function initCharts() {
+      const ctxOpsi = document.getElementById('chart-opsi').getContext('2d');
+      chartOpsiInstance = new Chart(ctxOpsi, {
+        type: 'doughnut',
+        data: {
+          labels: ['Opsi 1 (Mentah)', 'Opsi 2 (LSD Rp1,5jt)', 'Opsi 3 (Kavling)'],
+          datasets: [{
+            data: [0, 0, 0],
+            backgroundColor: ['#64748b', '#10b981', '#a855f7'],
+            borderWidth: 2,
+            borderColor: '#0f172a'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#94a3b8', font: { size: 11 } }
+            }
+          }
+        }
+      });
+
+      const ctxUrgensi = document.getElementById('chart-urgensi').getContext('2d');
+      chartUrgensiInstance = new Chart(ctxUrgensi, {
+        type: 'bar',
+        data: {
+          labels: ['Mendesak (<6 bln)', 'Menengah (7-18 bln)', 'Santai (>18 bln)'],
+          datasets: [{
+            label: 'Jumlah Anggota',
+            data: [0, 0, 0],
+            backgroundColor: ['#f43f5e', '#f59e0b', '#10b981'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 1, color: '#94a3b8' },
+              grid: { color: '#334155' }
+            },
+            x: {
+              ticks: { color: '#94a3b8' },
+              grid: { display: false }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    function updateDashboard() {
+      const votes = Object.values(responses);
+
+      const opsiCounts = { jual_mentah: 0, alih_lsd_global: 0, kavling_develop: 0 };
+      const urgensiCounts = { mendesak: 0, moderat: 0, santai: 0 };
+
+      votes.forEach(v => {
+        if (opsiCounts[v.opsi_eksekusi] !== undefined) opsiCounts[v.opsi_eksekusi]++;
+        if (urgensiCounts[v.urgensi] !== undefined) urgensiCounts[v.urgensi]++;
+      });
+
+      if (chartOpsiInstance) {
+        chartOpsiInstance.data.datasets[0].data = [
+          opsiCounts.jual_mentah,
+          opsiCounts.alih_lsd_global,
+          opsiCounts.kavling_develop
+        ];
+        chartOpsiInstance.update();
+      }
+
+      if (chartUrgensiInstance) {
+        chartUrgensiInstance.data.datasets[0].data = [
+          urgensiCounts.mendesak,
+          urgensiCounts.moderat,
+          urgensiCounts.santai
+        ];
+        chartUrgensiInstance.update();
+      }
+
+      renderTableRekap();
+      renderRecommendation(votes, opsiCounts, urgensiCounts);
+    }
+
+    function renderTableRekap() {
+      const tbody = document.getElementById('table-rekap-body');
+      tbody.innerHTML = '';
+
+      if (Object.keys(responses).length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-slate-500">Belum ada suara yang masuk. Klik "Simulasi 7 Suara" di atas atau isi formulir satu per satu.</td></tr>`;
+        return;
+      }
+
+      anggotaList.forEach(m => {
+        const v = responses[m.id];
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-800/40 transition';
+
+        if (!v) {
+          tr.innerHTML = `
+            <td class="p-3 font-semibold text-slate-300">${m.nama}</td>
+            <td class="p-3 text-slate-400">${m.gender}</td>
+            <td class="p-3 text-emerald-400 font-bold">${m.saham} Saham (${m.saham === 2 ? '16,67%' : '8,33%'})</td>
+            <td colspan="5" class="p-3 text-slate-500 italic">Belum mengisi kuesioner</td>
+          `;
+        } else {
+          const formatUrgensi = {
+            mendesak: '<span class="text-rose-400 font-semibold">🔴 Mendesak</span>',
+            moderat: '<span class="text-amber-400 font-semibold">🟡 Menengah</span>',
+            santai: '<span class="text-emerald-400 font-semibold">🟢 Santai</span>'
+          }[v.urgensi] || v.urgensi;
+
+          const formatOpsi = {
+            jual_mentah: '<span class="text-slate-300 font-bold">Opsi 1 (Mentah)</span>',
+            alih_lsd_global: '<span class="text-emerald-400 font-bold">Opsi 2 (LSD Rp1,5jt)</span>',
+            kavling_develop: '<span class="text-purple-400 font-bold">Opsi 3 (Kavling)</span>'
+          }[v.opsi_eksekusi] || v.opsi_eksekusi;
+
+          const formatModal = {
+            patungan: 'Siap Patungan',
+            potong_dp: 'Potong DP/Investor',
+            nol_modal: 'Nol Modal'
+          }[v.kesiapan_modal] || v.kesiapan_modal;
+
+          tr.innerHTML = `
+            <td class="p-3 font-semibold text-white">${m.nama}</td>
+            <td class="p-3 text-slate-400">${m.gender}</td>
+            <td class="p-3 text-emerald-400 font-bold">${m.saham} Saham (${m.saham === 2 ? '16,67%' : '8,33%'})</td>
+            <td class="p-3">${formatUrgensi}</td>
+            <td class="p-3 text-slate-300">${formatModal}</td>
+            <td class="p-3">${formatOpsi}</td>
+            <td class="p-3 text-slate-300">${v.skema_bayar === 'serentak' ? 'Serentak' : 'Bertahap'}</td>
+            <td class="p-3 text-slate-400 text-[11px] max-w-xs truncate" title="${v.catatan || '-'}">${v.catatan || '-'}</td>
+          `;
+        }
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderRecommendation(votes, opsiCounts, urgensiCounts) {
+      const box = document.getElementById('rekomendasi-box');
+      if (votes.length === 0) {
+        box.innerHTML = `
+          <h4 class="text-sm font-bold text-slate-300 mb-1">Rekomendasi Eksekutor Masih Menunggu Data</h4>
+          <p class="text-xs text-slate-400">Silakan masukkan data ke-7 anggota keluarga untuk melihat sintesis keputusan terbaik.</p>
+        `;
+        return;
+      }
+
+      const total = votes.length;
+      let dominantOpsi = 'alih_lsd_global';
+      let maxCount = -1;
+      for (const [key, count] of Object.entries(opsiCounts)) {
+        if (count > maxCount) {
+          maxCount = count;
+          dominantOpsi = key;
+        }
+      }
+
+      const dominantText = {
+        jual_mentah: 'Opsi 1: Jual Langsung As-Is (Mentah)',
+        alih_lsd_global: 'Opsi 2: Alih Status LSD & Jual Global Rp 1,5 Jt/m²',
+        kavling_develop: 'Opsi 3: Timbun & Kavling Mandiri'
+      }[dominantOpsi];
+
+      box.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 text-base mt-0.5">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white">Sintesis Musyawarah (${total} dari 7 Anggota Telah Menjawab)</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Mayoritas keluarga condong ke <strong class="text-emerald-300">${dominantText}</strong> (${maxCount} dari ${total} suara).
+              ${urgensiCounts.mendesak > 2 ? '<br>⚠️ <em>Catatan likuiditas:</em> Ada '+urgensiCounts.mendesak+' anggota dengan kebutuhan mendesak (<6 bulan). Disarankan klausul DP 20% pembeli dibayarkan di awal saat pengurusan alih fungsi LSD.' : ''}
+              <br><span class="text-purple-300">Hak 1 saham (8,33%) milik Almh. Saudari ke-8 terlindungi penuh dalam kalkulasi Faraidh.</span>
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    function recalculateOptions() {
+      const luas = parseFloat(document.getElementById('calc-luas').value) || 5216;
+      const kedalaman = parseFloat(document.getElementById('calc-kedalaman').value) || 2.5;
+      const hargaTimbun = parseFloat(document.getElementById('calc-harga-timbun').value) || 100000;
+      const biayaLSD = parseFloat(document.getElementById('calc-biaya-lsd').value) || 250000000;
+
+      const volumeTimbun = luas * kedalaman;
+      const totalBiayaUrug = volumeTimbun * hargaTimbun;
+
+      document.getElementById('calc-volume-timbun').innerText = formatAngka(volumeTimbun) + ' m³';
+      document.getElementById('calc-total-biaya-urug').innerText = formatRupiah(totalBiayaUrug);
+
+      // OPSI 1: Jual mentah Rp 750.000 / m2
+      const opsi1Gross = luas * 750000;
+      const opsi1Tax = opsi1Gross * 0.05;
+      const opsi1Net = opsi1Gross - opsi1Tax;
+      netValues.opsi1 = opsi1Net;
+
+      document.getElementById('opsi1-gross').innerText = formatRupiah(opsi1Gross);
+      document.getElementById('opsi1-tax').innerText = formatRupiah(opsi1Tax);
+      document.getElementById('opsi1-net').innerText = formatRupiah(opsi1Net);
+      document.getElementById('opsi1-per-pria').innerText = formatJuta(opsi1Net * 2 / 12);
+      document.getElementById('opsi1-per-wanita').innerText = formatJuta(opsi1Net * 1 / 12);
+
+      // OPSI 2: Alih LSD Rp 1.500.000 / m2
+      const opsi2Gross = luas * 1500000;
+      const opsi2Tax = opsi2Gross * 0.05;
+      const opsi2Net = opsi2Gross - biayaLSD - opsi2Tax;
+      netValues.opsi2 = opsi2Net;
+
+      document.getElementById('opsi2-gross').innerText = formatRupiah(opsi2Gross);
+      document.getElementById('opsi2-lsd').innerText = formatRupiah(biayaLSD);
+      document.getElementById('opsi2-tax').innerText = formatRupiah(opsi2Tax);
+      document.getElementById('opsi2-net').innerText = formatRupiah(opsi2Net);
+      document.getElementById('opsi2-per-pria').innerText = formatJuta(opsi2Net * 2 / 12);
+      document.getElementById('opsi2-per-wanita').innerText = formatJuta(opsi2Net * 1 / 12);
+
+      // OPSI 3: Kavling (70% efektif, Rp 2.200.000 / m2)
+      const luasKavlingEfektif = luas * 0.70;
+      const opsi3Gross = luasKavlingEfektif * 2200000;
+      const infraLegal = 650000000;
+      const opsi3Net = opsi3Gross - totalBiayaUrug - infraLegal;
+      netValues.opsi3 = opsi3Net;
+
+      document.getElementById('opsi3-gross').innerText = formatRupiah(opsi3Gross);
+      document.getElementById('opsi3-urug').innerText = formatRupiah(totalBiayaUrug);
+      document.getElementById('opsi3-infra').innerText = formatRupiah(infraLegal);
+      document.getElementById('opsi3-net').innerText = formatRupiah(opsi3Net);
+      document.getElementById('opsi3-per-pria').innerText = formatJuta(opsi3Net * 2 / 12);
+      document.getElementById('opsi3-per-wanita').innerText = formatJuta(opsi3Net * 1 / 12);
+
+      renderFaraidhTable();
+    }
+
+    function renderFaraidhTable() {
+      const selectedOptionKey = document.getElementById('select-opsi-faraidh').value;
+      const currentNet = netValues[selectedOptionKey] || netValues.opsi2;
+      const tbody = document.getElementById('faraidh-table-body');
+      tbody.innerHTML = '';
+
+      const nilaiPerSaham = currentNet / 12;
+
+      ahliWarisFaraidh.forEach(w => {
+        const nominal = w.saham * nilaiPerSaham;
+        const tr = document.createElement('tr');
+        tr.className = w.isAlmh ? 'bg-purple-950/30 hover:bg-purple-900/40 font-medium' : 'hover:bg-slate-800/40';
+
+        tr.innerHTML = `
+          <td class="p-3">${w.no}</td>
+          <td class="p-3 font-semibold text-white">
+            ${w.nama}
+            ${w.isAlmh ? '<span class="ml-2 text-[10px] bg-purple-900 text-purple-300 px-2 py-0.5 rounded-full border border-purple-700">Munasakhat</span>' : ''}
+          </td>
+          <td class="p-3 text-slate-400">${w.status}</td>
+          <td class="p-3 text-center font-bold ${w.saham === 2 ? 'text-emerald-400' : 'text-blue-400'}">${w.saham} Saham</td>
+          <td class="p-3 text-center text-slate-300">${w.persen}</td>
+          <td class="p-3 text-right font-mono font-bold text-white">${formatRupiah(nominal)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('faraidh-total-net').innerText = formatRupiah(currentNet);
+    }
+
+    function formatRupiah(val) {
+      return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+    }
+
+    function formatAngka(val) {
+      return Math.round(val).toLocaleString('id-ID');
+    }
+
+    function formatJuta(val) {
+      if (val >= 1000000000) {
+        return 'Rp ' + (val / 1000000000).toFixed(3) + ' Milyar';
+      }
+      return 'Rp ' + (val / 1000000).toFixed(1) + ' Juta';
+    }
+
+    function loadSampleResponses() {
+      if (!isAdmin) {
+        openAdminModal();
+        return;
+      }
+      responses = {
+        pria_1: {
+          memberId: 'pria_1', nama: 'Saudara Pria 1', gender: 'Pria', saham: 2,
+          urgensi: 'moderat', kesiapan_modal: 'potong_dp', opsi_eksekusi: 'alih_lsd_global',
+          skema_bayar: 'serentak', komitmen: true, catatan: 'Fokus agar legalitas LSD aman dulu, pembeli jelas.'
+        },
+        pria_2: {
+          memberId: 'pria_2', nama: 'Saudara Pria 2', gender: 'Pria', saham: 2,
+          urgensi: 'mendesak', kesiapan_modal: 'nol_modal', opsi_eksekusi: 'alih_lsd_global',
+          skema_bayar: 'serentak', komitmen: true, catatan: 'Butuh uang segera untuk renovasi rumah.'
+        },
+        pria_3: {
+          memberId: 'pria_3', nama: 'Saudara Pria 3', gender: 'Pria', saham: 2,
+          urgensi: 'santai', kesiapan_modal: 'patungan', opsi_eksekusi: 'kavling_develop',
+          skema_bayar: 'bertahap', komitmen: true, catatan: 'Kavling prospektif jika diuruk rapi.'
+        },
+        pria_4: {
+          memberId: 'pria_4', nama: 'Saudara Pria 4', gender: 'Pria', saham: 2,
+          urgensi: 'moderat', kesiapan_modal: 'potong_dp', opsi_eksekusi: 'alih_lsd_global',
+          skema_bayar: 'serentak', komitmen: true, catatan: 'Opsi 2 paling aman, tidak repot urus urukan.'
+        },
+        wanita_1: {
+          memberId: 'wanita_1', nama: 'Saudari Wanita 1', gender: 'Wanita', saham: 1,
+          urgensi: 'mendesak', kesiapan_modal: 'nol_modal', opsi_eksekusi: 'jual_mentah',
+          skema_bayar: 'serentak', komitmen: true, catatan: 'Khawatir proses izin berbelit-belit.'
+        },
+        wanita_2: {
+          memberId: 'wanita_2', nama: 'Saudari Wanita 2', gender: 'Wanita', saham: 1,
+          urgensi: 'moderat', kesiapan_modal: 'potong_dp', opsi_eksekusi: 'alih_lsd_global',
+          skema_bayar: 'serentak', komitmen: true, catatan: 'Asal tidak keluar biaya tunai di muka, saya sepakat Rp 1,5 Jt.'
+        },
+        wanita_3: {
+          memberId: 'wanita_3', nama: 'Saudari Wanita 3', gender: 'Wanita', saham: 1,
+          urgensi: 'santai', kesiapan_modal: 'potong_dp', opsi_eksekusi: 'alih_lsd_global',
+          skema_bayar: 'serentak', komitmen: true, catatan: 'Ikut suara mufakat keluarga besar.'
+        }
+      };
+
+      showToast('Data simulasi 7 anggota berhasil dimuat!');
+      renderMemberPills();
+      updateDashboard();
+      loadMemberDataIntoForm();
+    }
+
+    function resetData() {
+      responses = {};
+      document.getElementById('kuesioner-form').reset();
+      showToast('Semua data kuesioner telah direset.', false);
+      renderMemberPills();
+      updateDashboard();
+      loadMemberDataIntoForm();
+    }
+
+    function copySummaryToClipboard() {
+      const votes = Object.values(responses);
+      if (votes.length === 0) {
+        showToast('Belum ada data untuk disalin!', false);
+        return;
+      }
+
+      let text = `*HASIL PEMETAAN VISI WARIS KELUARGA (5.216 m²)*\n`;
+      text += `📅 Tanggal: ${new Date().toLocaleDateString('id-ID', { dateStyle: 'full' })}\n`;
+      text += `Status: ${votes.length} dari 7 Anggota Hidup Telah Menjawab\n`;
+      text += `Dasar Faraidh: 12 Saham (4 Pria @ 2 Saham, 4 Wanita [1 Wafat] @ 1 Saham)\n\n`;
+
+      text += `*Ringkasan Pilihan Opsi Eksekusi:*\n`;
+      const opsiCount = { jual_mentah: 0, alih_lsd_global: 0, kavling_develop: 0 };
+      votes.forEach(v => opsiCount[v.opsi_eksekusi]++);
+
+      text += `- Opsi 1 (Jual Mentah): ${opsiCount.jual_mentah} orang\n`;
+      text += `- Opsi 2 (LSD & Rp 1,5 Jt/m²): ${opsiCount.alih_lsd_global} orang\n`;
+      text += `- Opsi 3 (Timbun & Kavling): ${opsiCount.kavling_develop} orang\n\n`;
+
+      text += `*Rincian Suara Ahli Waris:*\n`;
+      anggotaList.forEach(m => {
+        const v = responses[m.id];
+        if (v) {
+          const opsiName = v.opsi_eksekusi === 'jual_mentah' ? 'Opsi 1 (Mentah)' : (v.opsi_eksekusi === 'alih_lsd_global' ? 'Opsi 2 (LSD Rp1,5jt)' : 'Opsi 3 (Kavling)');
+          text += `• ${m.nama} (${m.saham} saham): ${opsiName} | Urgensi: ${v.urgensi.toUpperCase()} | Modal: ${v.kesiapan_modal}\n`;
+        }
+      });
+
+      text += `\n*Catatan Faraidh:* Bagian Almh. Saudari ke-8 sebesar 1 Saham (8,33%) dialokasikan penuh ke ahli waris pengganti (keturunan almarhumah).`;
+
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+
+      showToast('Ringkasan format WhatsApp berhasil disalin!');
+    }
+  </script>
+</body>
+</html>

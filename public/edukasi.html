@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edukasi Waris - Sabrina Family</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Amiri', 'serif'],
+          },
+          colors: {
+            slate: {
+              850: '#151e2e',
+              900: '#0f172a',
+              950: '#020617',
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'blob': 'blob 7s infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #020617;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animation-delay-4000 { animation-delay: 4s; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative font-sans selection:bg-blue-500/30">
+
+  <!-- Abstract Background -->
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+    <div class="absolute -bottom-32 left-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000"></div>
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-10 w-full pt-8 px-6 max-w-7xl mx-auto flex items-center justify-between">
+    <a href="index.html" class="px-4 py-2 rounded-full glass-panel border border-slate-700 hover:border-blue-500/50 hover:bg-slate-800/80 transition-all text-slate-300 hover:text-blue-400 text-sm font-semibold flex items-center gap-2">
+      <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+    </a>
+  </header>
+
+  <main class="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 flex-grow flex flex-col text-left">
+    
+    <div class="mb-10 text-center md:text-left max-w-4xl">
+      <h1 class="opacity-0 translate-y-4 animate-fade-in-up font-heading text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Pusat <span class="text-gradient">Edukasi & Transparansi</span>
+      </h1>
+      <p class="opacity-0 translate-y-4 animate-fade-in-up delay-100 text-slate-400 text-lg font-light">
+        Musyawarah Waris Islam & Optimalisasi Lahan 5.216 m²
+      </p>
+    </div>
+
+    <!-- Urgensi Card -->
+    <div class="glass-panel p-6 md:p-8 rounded-3xl border border-slate-700/50 mb-12 opacity-0 translate-y-4 animate-fade-in-up delay-200 max-w-4xl">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 flex-shrink-0 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3 font-heading">Urgensi & Tujuan Laman Edukasi</h2>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Dalam musyawarah tanah warisan keluarga, konflik dan kebuntuan (deadlock) paling sering muncul bukan karena niat buruk, melainkan akibat kesenjangan informasi (<em>information asymmetry</em>) dan prasangka.
+          </p>
+          <div class="p-4 rounded-xl bg-blue-900/20 border border-blue-800/30 text-blue-200 text-sm font-medium">
+            Laman Edukasi ini berfungsi sebagai zona netral dan objektif yang mendudukkan fakta syariah, fakta fisik lahan, fakta pasar, dan mitigasi risiko transaksi secara transparan.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULES GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 opacity-0 translate-y-4 animate-fade-in-up delay-300">
+      
+      <!-- Modul 1 -->
+      <a href="modul.html?id=1" class="group glass-panel rounded-3xl overflow-hidden border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(16,185,129,0.15)] flex flex-col h-full">
+        <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80" alt="Modul 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          <div class="absolute top-4 left-4 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white flex items-center justify-center font-bold">1</div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">Faraidh</div>
+          <h3 class="text-white font-semibold font-heading text-xl mb-2 group-hover:text-emerald-300 transition-colors">Landasan Syariah Faraidh (Rasio 2:1)</h3>
+          <p class="text-slate-400 text-sm mt-auto">Mengapa pria 2 saham & wanita 1 saham?</p>
+        </div>
+      </a>
+
+      <!-- Modul 2 -->
+      <a href="modul.html?id=2" class="group glass-panel rounded-3xl overflow-hidden border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(168,85,247,0.15)] flex flex-col h-full">
+        <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&q=80" alt="Modul 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          <div class="absolute top-4 left-4 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white flex items-center justify-center font-bold">2</div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="text-purple-400 text-xs font-bold uppercase tracking-wider mb-2">Kompilasi Hukum Islam</div>
+          <h3 class="text-white font-semibold font-heading text-xl mb-2 group-hover:text-purple-300 transition-colors">Status Hak Almarhumah Saudari ke-8</h3>
+          <p class="text-slate-400 text-sm mt-auto">Munasakhat & Hak Ahli Waris Pengganti.</p>
+        </div>
+      </a>
+
+      <!-- Modul 3 -->
+      <a href="modul.html?id=3" class="group glass-panel rounded-3xl overflow-hidden border border-slate-700/50 hover:border-amber-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(245,158,11,0.15)] flex flex-col h-full">
+        <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80" alt="Modul 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          <div class="absolute top-4 left-4 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white flex items-center justify-center font-bold">3</div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">Fisik & Lahan</div>
+          <h3 class="text-white font-semibold font-heading text-xl mb-2 group-hover:text-amber-300 transition-colors">Realitas Fisik Lahan (Beban Urug)</h3>
+          <p class="text-slate-400 text-sm mt-auto">Tantangan rawa & modal urugan Rp 1,3 M.</p>
+        </div>
+      </a>
+
+      <!-- Modul 4 -->
+      <a href="modul.html?id=4" class="group glass-panel rounded-3xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(59,130,246,0.15)] flex flex-col h-full">
+        <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1590496794008-383c8070b257?auto=format&fit=crop&q=80" alt="Modul 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          <div class="absolute top-4 left-4 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white flex items-center justify-center font-bold">4</div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="text-blue-400 text-xs font-bold uppercase tracking-wider mb-2">Regulasi Pemerintah</div>
+          <h3 class="text-white font-semibold font-heading text-xl mb-2 group-hover:text-blue-300 transition-colors">Memahami Legalitas LSD</h3>
+          <p class="text-slate-400 text-sm mt-auto">Pentingnya mengubah status sawah dilindungi.</p>
+        </div>
+      </a>
+
+      <!-- Modul 5 -->
+      <a href="modul.html?id=5" class="group glass-panel rounded-3xl overflow-hidden border border-slate-700/50 hover:border-rose-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(244,63,94,0.15)] flex flex-col h-full md:col-span-2 lg:col-span-1">
+        <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80" alt="Modul 5" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          <div class="absolute top-4 left-4 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white flex items-center justify-center font-bold">5</div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="text-rose-400 text-xs font-bold uppercase tracking-wider mb-2">Ekonomi & Pasar</div>
+          <h3 class="text-white font-semibold font-heading text-xl mb-2 group-hover:text-rose-300 transition-colors">Analisis Komparasi (Jebakan Kavling)</h3>
+          <p class="text-slate-400 text-sm mt-auto">Mengapa kavling mandiri hasil bersihnya lebih kecil?</p>
+        </div>
+      </a>
+
+      <!-- Modul 6 -->
+      <a href="modul.html?id=6" class="group glass-panel rounded-3xl overflow-hidden border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(20,184,166,0.15)] flex flex-col h-full md:col-span-1 lg:col-span-2 xl:col-span-1">
+        <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1618044733300-9472054094ee?auto=format&fit=crop&q=80" alt="Modul 6" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          <div class="absolute top-4 left-4 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white flex items-center justify-center font-bold">6</div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="text-teal-400 text-xs font-bold uppercase tracking-wider mb-2">Keamanan Transaksi</div>
+          <h3 class="text-white font-semibold font-heading text-xl mb-2 group-hover:text-teal-300 transition-colors">SOP Keamanan Uang (Zero Fraud)</h3>
+          <p class="text-slate-400 text-sm mt-auto">Fungsi Escrow Notaris & Split Transfer Bank.</p>
+        </div>
+      </a>
+
+      <!-- Modul 7 -->
+      <a href="modul.html?id=7" class="group glass-panel rounded-3xl overflow-hidden border-2 border-amber-600/50 hover:border-amber-400 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(217,119,6,0.25)] flex flex-col h-full md:col-span-2 lg:col-span-3 xl:col-span-2 relative">
+        <div class="absolute top-0 right-0 p-4 z-20">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-slate-900 shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Krusial
+          </span>
+        </div>
+        <div class="w-full h-48 lg:h-56 bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80" alt="Modul 7" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+          <div class="absolute top-4 left-4 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md border border-amber-500/50 text-amber-400 flex items-center justify-center font-bold">7</div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">Pedoman Eksekutor Khusus</div>
+          <h3 class="text-white font-semibold font-heading text-2xl mb-2 group-hover:text-amber-300 transition-colors">Tips Memfilter Calon Pembeli</h3>
+          <p class="text-slate-400 text-sm mt-auto">Pelajari 5 Protokol Saringan Utama & 3 Pantangan Emas untuk menghindari spekulan / pembeli bodong.</p>
+        </div>
+      </a>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

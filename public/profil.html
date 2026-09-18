@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Tanah - Sabrina Family</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Amiri', 'serif'],
+          },
+          colors: {
+            slate: {
+              850: '#151e2e',
+              900: '#0f172a',
+              950: '#020617',
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'blob': 'blob 7s infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #020617;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #34d399 0%, #0d9488 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animation-delay-4000 { animation-delay: 4s; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative font-sans selection:bg-emerald-500/30">
+
+  <!-- Abstract Background -->
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-teal-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+    <div class="absolute -bottom-32 left-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000"></div>
+    <!-- Grid Pattern overlay -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-10 w-full pt-8 px-6 max-w-7xl mx-auto flex items-center justify-between">
+    <a href="index.html" class="px-4 py-2 rounded-full glass-panel border border-slate-700 hover:border-emerald-500/50 hover:bg-slate-800/80 transition-all text-slate-300 hover:text-emerald-400 text-sm font-semibold flex items-center gap-2">
+      <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+    </a>
+  </header>
+
+  <main class="relative z-10 w-full max-w-5xl mx-auto px-6 py-12 flex-grow flex flex-col text-left">
+    
+    <div class="mb-12">
+      <h1 class="opacity-0 translate-y-4 animate-fade-in-up font-heading text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Profil <span class="text-gradient">Lahan Waris</span>
+      </h1>
+      <p class="opacity-0 translate-y-4 animate-fade-in-up delay-100 text-slate-400 text-lg md:text-xl font-light">
+        Informasi fisik lahan dan rincian administratif warisan keluarga.
+      </p>
+    </div>
+
+    <!-- Unified Container -->
+    <div class="glass-panel p-6 md:p-8 rounded-[2.5rem] border border-slate-700/50 opacity-0 translate-y-4 animate-fade-in-up delay-200 shadow-2xl">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        
+        <!-- Asset 1: Tanah Rawa -->
+        <div class="group glass-panel rounded-3xl overflow-hidden border border-amber-500/30 hover:border-amber-500/60 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(245,158,11,0.15)] flex flex-col">
+          <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" alt="Tanah Rawa" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          </div>
+          <div class="p-6 flex flex-col gap-2 relative">
+            <div class="absolute -top-6 right-6 w-12 h-12 rounded-2xl bg-slate-900 border border-amber-500/50 text-amber-400 flex items-center justify-center text-xl shadow-lg">
+              <i class="fa-solid fa-water"></i>
+            </div>
+            <h3 class="text-amber-400 text-xs font-bold uppercase tracking-wider">Tanah Rawa (Komersial)</h3>
+            <p class="text-white text-3xl font-bold font-heading">5.216 <span class="text-sm text-slate-500 font-sans">m²</span></p>
+            <div class="mt-3 space-y-1.5 border-t border-slate-700/50 pt-3">
+              <p class="text-sm text-slate-400">Kondisi Fisik: <strong class="text-slate-200">Rawa Dalam 2,5 m</strong></p>
+              <p class="text-sm text-slate-400">Beban Urug: <strong class="text-slate-200">~13.040 m³</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 2: LSD 3000m -->
+        <div class="group glass-panel rounded-3xl overflow-hidden border border-rose-500/30 hover:border-rose-500/60 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(244,63,94,0.15)] flex flex-col">
+          <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&q=80" alt="Lahan Tanpa Akses" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          </div>
+          <div class="p-6 flex flex-col gap-2 relative">
+            <div class="absolute -top-6 right-6 w-12 h-12 rounded-2xl bg-slate-900 border border-rose-500/50 text-rose-400 flex items-center justify-center text-xl shadow-lg">
+              <i class="fa-solid fa-road-barrier"></i>
+            </div>
+            <h3 class="text-rose-400 text-xs font-bold uppercase tracking-wider">Lahan LSD</h3>
+            <p class="text-white text-3xl font-bold font-heading">3.000 <span class="text-sm text-slate-500 font-sans">m²</span></p>
+            <div class="mt-3 space-y-1.5 border-t border-slate-700/50 pt-3">
+              <p class="text-sm text-slate-400">Akses Jalan: <strong class="text-slate-200">Tanpa Akses (Terisolasi)</strong></p>
+              <p class="text-sm text-slate-400">Status Lahan: <strong class="text-slate-200">LSD</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 3: Sawah Aktif -->
+        <div class="group glass-panel rounded-3xl overflow-hidden border border-emerald-500/30 hover:border-emerald-500/60 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(16,185,129,0.15)] flex flex-col">
+          <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&q=80" alt="Sawah Aktif" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          </div>
+          <div class="p-6 flex flex-col gap-2 relative">
+            <div class="absolute -top-6 right-6 w-12 h-12 rounded-2xl bg-slate-900 border border-emerald-500/50 text-emerald-400 flex items-center justify-center text-xl shadow-lg">
+              <i class="fa-solid fa-seedling"></i>
+            </div>
+            <h3 class="text-emerald-400 text-xs font-bold uppercase tracking-wider">LSD (Sawah Aktif)</h3>
+            <p class="text-white text-3xl font-bold font-heading">11.000 <span class="text-sm text-slate-500 font-sans">m²</span></p>
+            <div class="mt-3 space-y-1.5 border-t border-slate-700/50 pt-3">
+              <p class="text-sm text-slate-400">Kondisi Fisik: <strong class="text-slate-200">Sawah Produktif</strong></p>
+              <p class="text-sm text-slate-400">Akses Jalan: <strong class="text-slate-200">Tanpa Akses (Terisolasi)</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 4: Permukiman Perbukitan -->
+        <div class="group glass-panel rounded-3xl overflow-hidden border border-indigo-500/30 hover:border-indigo-500/60 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(99,102,241,0.15)] flex flex-col">
+          <div class="w-full h-48 bg-slate-800 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?auto=format&fit=crop&q=80" alt="Perbukitan" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+          </div>
+          <div class="p-6 flex flex-col gap-2 relative">
+            <div class="absolute -top-6 right-6 w-12 h-12 rounded-2xl bg-slate-900 border border-indigo-500/50 text-indigo-400 flex items-center justify-center text-xl shadow-lg">
+              <i class="fa-solid fa-mountain"></i>
+            </div>
+            <h3 class="text-indigo-400 text-xs font-bold uppercase tracking-wider">Permukiman (Non LSD)</h3>
+            <p class="text-white text-3xl font-bold font-heading">6,7 <span class="text-sm text-slate-500 font-sans">Hektar</span></p>
+            <div class="mt-3 space-y-1.5 border-t border-slate-700/50 pt-3">
+              <p class="text-sm text-slate-400">Kondisi Fisik: <strong class="text-slate-200">Perbukitan</strong></p>
+              <p class="text-sm text-slate-400">Status Lahan: <strong class="text-slate-200">Zona Permukiman</strong></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

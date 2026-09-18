@@ -1,0 +1,29 @@
+{
+  "name": "sabrina-family",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx ts-node src/server.ts", "build": "npx tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.0",
+    "drizzle-orm": "^0.45.2",
+    "express": "^5.2.1",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.1",
+    "@types/pg": "^8.23.1",
+    "drizzle-kit": "^0.31.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^7.0.2"
+  }
+}

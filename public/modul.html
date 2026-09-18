@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul Edukasi - Sabrina Family</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Amiri', 'serif'],
+          },
+          colors: {
+            slate: {
+              850: '#151e2e',
+              900: '#0f172a',
+              950: '#020617',
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #020617;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Scrollbar for table */
+    .table-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    .table-container::-webkit-scrollbar-thumb {
+      background-color: rgba(71, 85, 105, 0.5);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative font-sans selection:bg-blue-500/30">
+
+  <!-- Background overlay (Dynamic based on module) -->
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div id="bg-image" class="absolute inset-0 bg-cover bg-center opacity-10 scale-105 filter blur-sm"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/95 to-slate-950"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-10 w-full pt-8 px-6 max-w-4xl mx-auto flex items-center justify-between">
+    <a href="edukasi.html" class="px-4 py-2 rounded-full glass-panel border border-slate-700 hover:border-blue-500/50 hover:bg-slate-800/80 transition-all text-slate-300 hover:text-blue-400 text-sm font-semibold flex items-center gap-2">
+      <i class="fa-solid fa-arrow-left"></i> Kembali ke Pusat Edukasi
+    </a>
+  </header>
+
+  <main class="relative z-10 w-full max-w-4xl mx-auto px-6 py-10 flex-grow flex flex-col text-left">
+    
+    <article id="module-container" class="opacity-0 translate-y-4 animate-fade-in-up">
+      <!-- Injected by JS -->
+    </article>
+
+  </main>
+
+  <script>
+    const modulesData = [
+      {
+        id: 1,
+        title: "Landasan Syariah Faraidh (Rasio 2:1)",
+        subtitle: "Mengapa Pria 2 Saham, Wanita 1 Saham?",
+        image: "https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80",
+        color: "emerald",
+        content: `
+          <h4 class="text-emerald-400 font-bold mb-4 text-xl">Hikmah di Balik Rasio 2 : 1 Menurut Syariat Islam</h4>
+          <div class="p-6 mb-8 rounded-xl bg-slate-800/50 border-l-4 border-emerald-500 font-heading text-xl md:text-2xl text-slate-200 italic shadow-lg">
+            "Bagian seorang anak laki-laki sama dengan bagian dua orang anak perempuan..." <br><span class="text-sm text-slate-400 mt-2 block not-italic font-sans">(QS. An-Nisa: 11)</span>
+          </div>
+          <div class="space-y-6 text-slate-300 leading-relaxed text-base">
+            <div class="glass-panel p-5 rounded-2xl">
+              <strong class="text-white block mb-2 text-lg"><i class="fa-solid fa-scale-unbalanced text-emerald-500 mr-2"></i> Tanggung Jawab Finansial Laki-laki:</strong> 
+              Dalam hukum Islam, anak laki-laki menanggung kewajiban nafkah mutlak untuk dirinya, istrinya, anak-anaknya, serta memiliki beban moral menanggung saudara perempuan atau orang tua jika membutuhkan.
+            </div>
+            <div class="glass-panel p-5 rounded-2xl">
+              <strong class="text-white block mb-2 text-lg"><i class="fa-solid fa-shield-heart text-emerald-500 mr-2"></i> Hak Penuh Milik Perempuan:</strong> 
+              Seluruh harta waris yang diterima anak perempuan adalah hak milik mutlak pribadi (100%). Suami maupun anak-anaknya tidak berhak mengambil sepeser pun, dan wanita tidak dibebani kewajiban memberi nafkah keluarga dari harta warisnya.
+            </div>
+            <div class="glass-panel p-5 rounded-2xl border border-emerald-900/50 bg-emerald-900/10">
+              <strong class="text-emerald-400 block mb-2 text-lg"><i class="fa-solid fa-balance-scale text-emerald-500 mr-2"></i> Keadilan Proporsional, Bukan Matematika Buta:</strong> 
+              Islam memberikan porsi lebih besar kepada laki-laki berbanding lurus dengan beban nafkah yang diwajibkan syariat di pundaknya.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 2,
+        title: "Status Hak Almarhumah Saudari ke-8",
+        subtitle: "Haram Mengurangi Hak Anak Yatim/Cucu",
+        image: "https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&q=80",
+        color: "purple",
+        content: `
+          <h4 class="text-purple-400 font-bold mb-4 text-xl">Mengapa Hak Almarhumah Tidak Boleh Dibagi ke Saudara yang Hidup?</h4>
+          <p class="text-xs text-slate-500 mb-8 uppercase tracking-wider font-semibold border-b border-slate-800 pb-4">Rujukan: Asas Fiqih Munasakhat & KHI Pasal 185 (Ahli Waris Pengganti)</p>
+          
+          <div class="space-y-6 text-slate-300 leading-relaxed text-base">
+            <div class="glass-panel p-5 rounded-2xl">
+              <strong class="text-white block mb-2 text-lg">Hak yang Melekat Sejak Pewaris Wafat:</strong> 
+              Ketika orang tua pewaris wafat, hak waris almarhumah saudari ke-8 sebesar 1 saham (8,33%) telah sah mengikat. Meninggalnya saudari perempuan setelahnya tidak menghapus porsi tersebut.
+            </div>
+            
+            <div class="glass-panel p-5 rounded-2xl">
+              <strong class="text-white block mb-2 text-lg">Peralihan ke Ahli Waris Pengganti:</strong> 
+              Hak 1 saham almarhumah otomatis beralih menjadi hak waris bagi keturunan sahnya (anak kandung almarhumah / cucu pewaris).
+            </div>
+            
+            <div class="p-6 rounded-2xl bg-rose-950/40 border border-rose-900/50 text-rose-200 shadow-lg relative overflow-hidden">
+              <div class="absolute -right-4 -bottom-4 text-8xl text-rose-900/30">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <strong class="text-rose-400 block mb-3 text-xl relative z-10"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Peringatan Syariah Mutlak</strong>
+              <p class="relative z-10">Membagi porsi almarhumah kepada 7 saudara yang masih hidup secara sepihak termasuk memakan hak keponakan/ahli waris lain secara batil. Dalam musyawarah ini, 1 saham almarhumah (8,33%) dikunci mutlak dan dilindungi penuh.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 3,
+        title: "Realitas Fisik Lahan (Beban Urug)",
+        subtitle: "Tantangan Rawa & Beban Urug 2,5 Meter",
+        image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80",
+        color: "amber",
+        content: `
+          <h4 class="text-amber-400 font-bold mb-4 text-xl">Mengapa Tanah Rawa Tidak Bisa Langsung Dihargai Seperti Tanah Padat?</h4>
+          
+          <div class="space-y-6 text-slate-300 leading-relaxed text-base">
+            <div class="flex flex-col md:flex-row gap-6">
+              <div class="glass-panel p-6 rounded-2xl flex-1 text-center border-t-4 border-t-amber-500/50">
+                <i class="fa-solid fa-layer-group text-3xl text-slate-500 mb-3"></i>
+                <h5 class="text-white font-bold mb-1">Fakta Elevasi</h5>
+                <p class="text-sm">Luas 5.216 m² dengan kedalaman rawa rata-rata 2,5 meter.</p>
+              </div>
+              
+              <div class="glass-panel p-6 rounded-2xl flex-1 text-center border-t-4 border-t-amber-500/50">
+                <i class="fa-solid fa-truck-moving text-3xl text-slate-500 mb-3"></i>
+                <h5 class="text-white font-bold mb-1">Armada Truk</h5>
+                <p class="text-sm">Setara dengan kebutuhan 1.800 - 2.100 rit dump truck.</p>
+              </div>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl bg-slate-900/60 border border-slate-700">
+              <strong class="text-white block mb-3 text-lg">Perhitungan Volume Urugan:</strong>
+              <div class="bg-slate-950 p-4 rounded-xl font-mono text-emerald-400 text-lg md:text-xl border border-slate-800 text-center shadow-inner">
+                V = 5.216 m² × 2,5 m = 13.040 m³
+              </div>
+              <p class="mt-4 text-center">Dengan biaya tanah timbun padat Rp 100.000 / m³, modal yang dibutuhkan mencapai <strong class="text-white text-lg">Rp 1,304 Miliar</strong>.</p>
+            </div>
+            
+            <div class="p-6 rounded-2xl bg-amber-950/30 border border-amber-900/50">
+              <strong class="text-amber-400 text-lg mb-2 block"><i class="fa-solid fa-magnifying-glass-chart mr-2"></i> Konsekuensi Harga Pasar</strong> 
+              Jika pembeli menawar tanah kita Rp 750.000/m² pada status Mentah, itu bukan berarti tanah kita diremehkan. Pembeli harus menyiapkan uang ekstra tunai Rp 1,3 Miliar dari kantongnya sendiri untuk menguruk rawa tersebut agar bisa digunakan.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 4,
+        title: "Memahami Legalitas LSD",
+        subtitle: "Lahan Sawah Dilindungi",
+        image: "https://images.unsplash.com/photo-1590496794008-383c8070b257?auto=format&fit=crop&q=80",
+        color: "blue",
+        content: `
+          <h4 class="text-blue-400 font-bold mb-6 text-xl">Apa Itu LSD & Mengapa Pengurusan Izin Menaikkan Nilai Jual 2 Kali Lipat?</h4>
+          
+          <div class="space-y-6 text-slate-300 leading-relaxed text-base">
+            <div class="glass-panel p-5 rounded-2xl flex gap-4">
+              <i class="fa-solid fa-file-contract text-2xl text-slate-500 mt-1"></i>
+              <div>
+                <strong class="text-white block mb-1 text-lg">Definisi LSD:</strong> 
+                Keputusan Menteri ATR/BPN menetapkan peta LSD untuk menjaga ketahanan pangan nasional. Tanah yang berstatus indikasi LSD tidak dapat diterbitkan izin mendirikan bangunan (PBG) dan tidak bisa dipecah sertifikatnya sebelum statusnya dialihkan.
+              </div>
+            </div>
+            
+            <div class="glass-panel p-5 rounded-2xl flex gap-4 border border-rose-900/30">
+              <i class="fa-solid fa-ban text-2xl text-rose-500 mt-1"></i>
+              <div>
+                <strong class="text-white block mb-1 text-lg">Risiko Membangun Tanpa Alih Status:</strong> 
+                Pembangunan fisik dapat disegel oleh pemerintah daerah dan sertifikat pemecahan akan ditolak oleh kantor BPN.
+              </div>
+            </div>
+            
+            <div class="p-6 rounded-2xl bg-blue-950/30 border border-blue-900/50">
+              <strong class="text-blue-400 text-lg mb-2 block"><i class="fa-solid fa-arrow-trend-up mr-2"></i> Nilai Tambah Opsi 2 (Jual Global Siap Bangun)</strong> 
+              Dengan modal perizinan rekomendasi teknis (Rekomtek) sekitar <strong>Rp 250 Juta</strong>, status tanah berubah menjadi zona kuning (perumahan/komersial). Investor berani membayar Rp 1.500.000 / m² karena mereka tidak perlu menanggung risiko hukum dan birokrasi perizinan lagi.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 5,
+        title: "Analisis Komparasi (Jebakan Kavling)",
+        subtitle: "Mengapa Kavling Belum Tentu Paling Untung?",
+        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80",
+        color: "rose",
+        content: `
+          <h4 class="text-rose-400 font-bold mb-6 text-xl">Mengapa Harga Rp 2,2 Jt/m² di Opsi Kavling Menghasilkan Uang Bersih Lebih Sedikit?</h4>
+          
+          <div class="table-container overflow-x-auto rounded-xl border border-slate-700 shadow-xl mb-8">
+            <table class="w-full text-left border-collapse min-w-[650px] text-sm md:text-base">
+              <thead>
+                <tr class="bg-slate-800 border-b border-slate-700 text-slate-200">
+                  <th class="p-4 font-semibold w-1/3">Parameter</th>
+                  <th class="p-4 font-semibold text-emerald-400 bg-emerald-950/20">Opsi 2 (Jual Global Rp 1,5 Jt)</th>
+                  <th class="p-4 font-semibold text-rose-400 bg-rose-950/20">Opsi 3 (Kavling Rp 2,2 Jt)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-700/50 bg-slate-900/50">
+                <tr>
+                  <td class="p-4 font-medium text-slate-300">Luas yang Menghasilkan Uang</td>
+                  <td class="p-4 bg-emerald-950/10">5.216 m² Utuh (100%)</td>
+                  <td class="p-4 bg-rose-950/10 text-rose-300 font-medium">3.651 m² Saja <br><span class="text-xs opacity-70 font-normal">(Hilang 30% untuk jalan/parit)</span></td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-medium text-slate-300">Beban Biaya Urug Rawa</td>
+                  <td class="p-4 bg-emerald-950/10 text-emerald-300 font-medium">Rp 0 <span class="text-xs opacity-70 font-normal">(Ditanggung Investor)</span></td>
+                  <td class="p-4 bg-rose-950/10 text-rose-300 font-medium">-Rp 1,304 Miliar <br><span class="text-xs opacity-70 font-normal">(Keluarga wajib bayar)</span></td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-medium text-slate-300">Biaya Fasum & Paving</td>
+                  <td class="p-4 bg-emerald-950/10 text-emerald-300 font-medium">Rp 0</td>
+                  <td class="p-4 bg-rose-950/10 text-rose-300 font-medium">-Rp 650 Juta <br><span class="text-xs opacity-70 font-normal">(Keluarga wajib bangun)</span></td>
+                </tr>
+                <tr class="bg-slate-800 font-bold border-y-2 border-slate-600">
+                  <td class="p-4 text-white">Total Bersih Diterima Keluarga</td>
+                  <td class="p-4 text-emerald-400 text-lg">± Rp 7,18 Miliar</td>
+                  <td class="p-4 text-rose-400 text-lg">± Rp 6,07 Miliar</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-medium text-slate-300">Uang Bersih Anak Laki-laki</td>
+                  <td class="p-4 bg-emerald-950/10 font-bold">Rp 1,19 Miliar <span class="text-xs font-normal">/ org</span></td>
+                  <td class="p-4 bg-rose-950/10">Rp 1,01 Miliar <span class="text-xs font-normal">/ org</span></td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-medium text-slate-300">Uang Bersih Anak Perempuan</td>
+                  <td class="p-4 bg-emerald-950/10 font-bold">Rp 598 Juta <span class="text-xs font-normal">/ org</span></td>
+                  <td class="p-4 bg-rose-950/10">Rp 506 Juta <span class="text-xs font-normal">/ org</span></td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-medium text-slate-300">Waktu Pencairan Uang</td>
+                  <td class="p-4 bg-emerald-950/10 text-emerald-300">6 - 12 Bulan (Sekaligus)</td>
+                  <td class="p-4 bg-rose-950/10 text-amber-300">18 - 36 Bulan <br><span class="text-xs opacity-70 font-normal">(Menunggu eceran laku)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-indigo-950/30 border border-indigo-900/50 text-indigo-200">
+            <strong class="text-indigo-400 block mb-2 text-lg"><i class="fa-solid fa-lightbulb mr-2"></i> Kesimpulan Penting:</strong>
+            Menjual eceran kavling terlihat sangat menguntungkan jika hanya melihat angka harga per meter persegi (Rp 2,2 Jt). Namun, keluarga harus menanggung kerugian area efektif 30% untuk jalan, risiko pengeluaran kas modal urug Rp 1,3 Miliar di awal, dan uang yang cair bertahap sangat lambat bertahun-tahun. Opsi 2 memberikan uang tunai bersih paling optimal tanpa risiko modal dari keluarga.
+          </div>
+        `
+      },
+      {
+        id: 6,
+        title: "Standar Operasional Keamanan Uang",
+        subtitle: "Mencegah Fraud & Penipuan Internal/Eksternal",
+        image: "https://images.unsplash.com/photo-1618044733300-9472054094ee?auto=format&fit=crop&q=80",
+        color: "teal",
+        content: `
+          <h4 class="text-teal-400 font-bold mb-6 text-xl">Bagaimana Menjamin Uang Penjualan Tidak Disalahgunakan?</h4>
+          
+          <div class="space-y-6 text-slate-300 leading-relaxed text-base">
+            <div class="glass-panel p-6 rounded-2xl flex items-start gap-5">
+              <div class="w-12 h-12 rounded-full bg-slate-800 text-teal-400 flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fa-solid fa-building-columns"></i>
+              </div>
+              <div>
+                <strong class="text-white block mb-1 text-lg">Rekening Penampung Notaris (Escrow Account)</strong> 
+                Pembeli dilarang mentransfer dana pelunasan ke rekening perseorangan eksekutor atau wakil keluarga mana pun. Seluruh dana disetorkan terpusat ke rekening penampung resmi kantor Notaris/PPAT yang ditunjuk dan disepakati.
+              </div>
+            </div>
+            
+            <div class="glass-panel p-6 rounded-2xl flex items-start gap-5">
+              <div class="w-12 h-12 rounded-full bg-slate-800 text-teal-400 flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+              </div>
+              <div>
+                <strong class="text-white block mb-1 text-lg">Pencairan Serentak (Split Transfer)</strong> 
+                Pada saat tanda tangan Akta Jual Beli (AJB), Notaris memvalidasi surat persetujuan dan menerbitkan instruksi transfer serentak dari Escrow langsung ke rekening masing-masing 7 saudara dan perwakilan almarhumah sesuai persentase nominal saham Faraidh.
+              </div>
+            </div>
+            
+            <div class="glass-panel p-6 rounded-2xl flex items-start gap-5">
+              <div class="w-12 h-12 rounded-full bg-slate-800 text-teal-400 flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <div>
+                <strong class="text-white block mb-1 text-lg">Bukti Transfer Terbuka & Transparan</strong> 
+                Slip transfer bank resmi dari Notaris ke masing-masing ahli waris diunggah ke arsip keluarga untuk verifikasi silang bersama. Tidak ada dana yang "mampir" atau "transit".
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 7,
+        title: "Tips & Prosedur Memfilter Calon Pembeli",
+        subtitle: "Anti-PHP & Anti-Spekulan Bodong",
+        image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80",
+        color: "amber",
+        content: `
+          <div class="flex items-center gap-3 mb-6 flex-wrap">
+            <h4 class="text-amber-400 font-bold text-xl">SOP Menghadapi Investor (Filter Protocol)</h4>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/50">
+              <i class="fa-solid fa-triangle-exclamation mr-1"></i> Krusial Bagi Eksekutor
+            </span>
+          </div>
+          
+          <p class="text-sm md:text-base text-slate-300 mb-8 border-l-4 border-amber-600 pl-4 bg-slate-900/40 py-3 pr-3 rounded-r-xl">
+            <strong>Urgensi:</strong> Aset tanah bernilai miliaran rupiah sangat rentan dikerumuni makelar bertingkat yang tidak memiliki uang. Mereka hanya berniat "mengikat" tanah keluarga tanpa modal (PHP), atau bahkan berniat menggadaikan dokumen.
+          </p>
+          
+          <div class="space-y-5 relative before:absolute before:inset-0 before:ml-[23px] before:w-0.5 before:bg-slate-700 before:-z-10 z-0">
+            
+            <!-- Step 1 -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-900 border-4 border-emerald-500 flex items-center justify-center text-emerald-400 font-bold flex-shrink-0 shadow-lg relative z-10 text-lg">1</div>
+              <div class="glass-panel p-5 rounded-2xl flex-grow">
+                <h6 class="text-emerald-400 font-bold mb-2 text-lg">Identifikasi Kapasitas (End-Buyer vs Makelar)</h6>
+                <p class="text-slate-300 mb-3 text-sm">Orang sering mengaku "siap membeli harga tinggi", namun nyatanya perantara. Mereka mematok harga untuk di mark-up liar.</p>
+                <div class="bg-slate-900/80 p-3 rounded-xl text-slate-300 text-sm border border-slate-700">
+                  <strong class="text-emerald-400"><i class="fa-solid fa-check mr-2"></i>SOP:</strong> Tanyakan: "Beli untuk dipakai sendiri atau agen?". Jika perantara, wajib tunjukkan Surat Kuasa Resmi dari investor.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-900 border-4 border-emerald-500 flex items-center justify-center text-emerald-400 font-bold flex-shrink-0 shadow-lg relative z-10 text-lg">2</div>
+              <div class="glass-panel p-5 rounded-2xl flex-grow">
+                <h6 class="text-emerald-400 font-bold mb-2 text-lg">Bukti Keseriusan Tertulis (LOI)</h6>
+                <p class="text-slate-300 mb-3 text-sm">Pembeli bermodal miliaran terbiasa menerbitkan Letter of Intent bermeterai & profil perusahaan.</p>
+                <div class="bg-slate-900/80 p-3 rounded-xl text-slate-300 text-sm border border-slate-700">
+                  <strong class="text-emerald-400"><i class="fa-solid fa-check mr-2"></i>SOP:</strong> Tolak negosiasi harga jika hanya diucapkan melalui lisan / WhatsApp santai tanpa dokumen penawaran resmi.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-900 border-4 border-emerald-500 flex items-center justify-center text-emerald-400 font-bold flex-shrink-0 shadow-lg relative z-10 text-lg">3</div>
+              <div class="glass-panel p-5 rounded-2xl flex-grow">
+                <h6 class="text-emerald-400 font-bold mb-2 text-lg">Verifikasi Kemampuan Dana (Proof of Funds)</h6>
+                <p class="text-slate-300 mb-3 text-sm">Jangan membuang energi rapat keluarga merespons tawaran dari entitas tanpa isi dompet.</p>
+                <div class="bg-slate-900/80 p-3 rounded-xl text-slate-300 text-sm border border-slate-700">
+                  <strong class="text-emerald-400"><i class="fa-solid fa-check mr-2"></i>SOP:</strong> Minta pembeli menunjukkan Surat Dukungan Bank (Bank Reference) kepada Notaris sebelum PPJB.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-900 border-4 border-emerald-500 flex items-center justify-center text-emerald-400 font-bold flex-shrink-0 shadow-lg relative z-10 text-lg">4</div>
+              <div class="glass-panel p-5 rounded-2xl flex-grow">
+                <h6 class="text-emerald-400 font-bold mb-2 text-lg">Uang Tanda Jadi (Min. 10%)</h6>
+                <p class="text-slate-300 mb-3 text-sm">Pembeli serius siap setor tunai ke rekening penampung Notaris saat PPJB ditandatangani.</p>
+                <div class="bg-slate-900/80 p-3 rounded-xl text-slate-300 text-sm border border-slate-700">
+                  <strong class="text-emerald-400"><i class="fa-solid fa-check mr-2"></i>SOP:</strong> DP wajib masuk escrow. Klausul PPJB: Batal sepihak = DP hangus untuk keluarga. Jangan terima bilyet giro kosong.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-slate-900 border-4 border-emerald-500 flex items-center justify-center text-emerald-400 font-bold flex-shrink-0 shadow-lg relative z-10 text-lg">5</div>
+              <div class="glass-panel p-5 rounded-2xl flex-grow">
+                <h6 class="text-emerald-400 font-bold mb-2 text-lg">Batasi Waktu Due Diligence</h6>
+                <p class="text-slate-300 mb-3 text-sm">Modus spekulan meminta waktu 3-6 bulan cek legalitas, padahal untuk cari investor lain. Tanah jadi tersandera.</p>
+                <div class="bg-slate-900/80 p-3 rounded-xl text-slate-300 text-sm border border-slate-700">
+                  <strong class="text-emerald-400"><i class="fa-solid fa-check mr-2"></i>SOP:</strong> Batasi audit maksimal 30 - 45 hari. Hindari klausul "menunggu tanah laku dijual kembali".
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Red Flags -->
+          <div class="mt-12 p-6 md:p-8 rounded-3xl border border-rose-900/50 bg-rose-950/30 relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 text-9xl text-rose-900/20">
+              <i class="fa-solid fa-ban"></i>
+            </div>
+            <h5 class="text-rose-400 font-bold mb-6 text-xl flex items-center gap-3 relative z-10">
+              <i class="fa-solid fa-ban text-2xl"></i> 3 Pantangan Emas Eksekutor
+            </h5>
+            <div class="space-y-4 relative z-10">
+              <div class="bg-slate-950/60 p-4 rounded-xl border border-rose-900/30 flex gap-4 items-start">
+                <span class="text-rose-500 text-xl mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+                <p class="text-slate-300 leading-relaxed text-sm"><strong>Dilarang keras menyerahkan Sertifikat Asli</strong> kepada calon pembeli atau perantara sebelum pelunasan di hadapan PPAT. Pengecekan BPN cukup pakai fotokopi legalisasi Notaris.</p>
+              </div>
+              <div class="bg-slate-950/60 p-4 rounded-xl border border-rose-900/30 flex gap-4 items-start">
+                <span class="text-rose-500 text-xl mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+                <p class="text-slate-300 leading-relaxed text-sm"><strong>Dilarang menandatangani Surat Kuasa Menjual</strong> atas nama pembeli sebelum dana lunas 100% diterima di rekening Notaris.</p>
+              </div>
+              <div class="bg-slate-950/60 p-4 rounded-xl border border-rose-900/30 flex gap-4 items-start">
+                <span class="text-rose-500 text-xl mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+                <p class="text-slate-300 leading-relaxed text-sm"><strong>Jangan percaya bukti transfer sebelum dicek mutasi bank:</strong> Validasi mutlak melalui cetak rekening koran di bank resmi, bukan tangkapan layar (screenshot) m-banking.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-10 flex justify-center pb-4 relative z-10">
+            <button onclick="alert('Fitur Unduh PDF SOP sedang dipersiapkan.')" class="px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold rounded-2xl flex items-center gap-3 shadow-[0_10px_20px_rgba(217,119,6,0.3)] transform hover:-translate-y-1 transition-all">
+              <i class="fa-solid fa-file-pdf text-2xl"></i>
+              <div class="text-left">
+                <div class="text-base">Unduh PDF Panduan Cepat</div>
+                <div class="text-xs text-amber-200 font-normal uppercase tracking-wider mt-0.5">SOP Menghadapi Calon Pembeli</div>
+              </div>
+            </button>
+          </div>
+        `
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const modId = parseInt(urlParams.get('id'));
+      const moduleData = modulesData.find(m => m.id === modId);
+
+      const container = document.getElementById('module-container');
+      const bgImage = document.getElementById('bg-image');
+
+      if (moduleData) {
+        document.title = moduleData.title + " - Sabrina Family";
+        
+        // Set dynamic background
+        bgImage.style.backgroundImage = `url('${moduleData.image}')`;
+        
+        // Define accent colors based on module data
+        let accentColorClasses = {
+          bg: \`bg-\${moduleData.color}-500\`,
+          text: \`text-\${moduleData.color}-400\`,
+          border: \`border-\${moduleData.color}-500/50\`
+        };
+
+        container.innerHTML = `
+          <div class="mb-10 text-center md:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">
+              Modul Edukasi ${moduleData.id}
+            </div>
+            <h1 class="font-heading text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+              ${moduleData.title}
+            </h1>
+            <p class="text-slate-400 text-xl font-light">
+              ${moduleData.subtitle}
+            </p>
+          </div>
+
+          <div class="w-full aspect-[21/9] rounded-3xl bg-slate-800 mb-12 overflow-hidden border border-slate-700/50 shadow-2xl relative">
+            <img src="${moduleData.image}" alt="${moduleData.title}" class="w-full h-full object-cover opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/20 to-transparent"></div>
+          </div>
+
+          <div class="prose prose-invert prose-slate max-w-none">
+            ${moduleData.content}
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="text-center py-20">
+            <i class="fa-solid fa-triangle-exclamation text-6xl text-amber-500 mb-6"></i>
+            <h1 class="text-3xl font-bold text-white mb-4">Modul Tidak Ditemukan</h1>
+            <p class="text-slate-400 mb-8">Maaf, modul edukasi yang Anda cari tidak tersedia atau URL tidak valid.</p>
+            <a href="edukasi.html" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition">Kembali ke Daftar Modul</a>
+          </div>
+        `;
+      }
+    });
+  </script>
+
+</body>
+</html>
